@@ -30,6 +30,12 @@ This document provides instructions on how to deploy the application using Docke
 
 2.  The application will be accessible at `http://localhost:8000`.
 
+## Security Considerations
+
+### Use HTTPS in Production
+
+For a production environment, it is strongly recommended to serve the application over HTTPS to ensure that all traffic is encrypted. You can achieve this by using a reverse proxy like Nginx or Apache in front of the Gunicorn server. The reverse proxy would handle the SSL/TLS termination and forward requests to the application.
+
 ## Environment Variables
 
 The application requires the following environment variables to be set:

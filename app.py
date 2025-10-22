@@ -9,6 +9,10 @@ from routes import register_routes
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# Security check for default SECRET_KEY in production
+if not app.debug and app.config['SECRET_KEY'] == 'a_default_secret_key':
+    raise ValueError('A proper SECRET_KEY must be set in the .env file for production.')
+
 db.init_app(app)
 bcrypt.init_app(app)
 migrate = Migrate(app, db)

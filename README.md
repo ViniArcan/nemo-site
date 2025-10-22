@@ -1,6 +1,6 @@
 # Site do NEMO
 
-Bem-vindo ao repositório oficial do site do NEMO (Núcleo de Estudos de Matemática Olímpica), um grupo de extensão USP de São Carlos dedicado à matemática competitiva e à resolução de problemas.
+Bem-vindo ao repositório oficial do site do NEMO (Núcleo de Estudos de Matemática Olímpica), um grupo de extensão da USP de São Carlos dedicado à matemática competitiva e à resolução de problemas.
 
 ## Sobre Este Projeto
 
@@ -33,17 +33,19 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
 
 2.  **Crie um arquivo de ambiente:**
     Crie um arquivo chamado `.env` na raiz do projeto e adicione o seguinte conteúdo. **Certifique-se de alterar a `SECRET_KEY` para uma string nova e aleatória.**
+    
+    (Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
     ```
     SECRET_KEY='sua_chave_super_secreta_aqui'
     DATABASE_URL='sqlite:///posts.db'
     ```
 
-3.  **Construa a imagem Docker:**
+4.  **Construa a imagem Docker:**
     ```bash
     sudo docker build -t nemo-app .
     ```
 
-4.  **Execute o contêiner Docker:**
+5.  **Execute o contêiner Docker:**
     Para garantir que seus posts, uploads e o banco de dados sejam salvos permanentemente, execute o contêiner com volumes, que conectam pastas do seu computador ao contêiner:
     ```bash
     sudo docker run -p 8000:8000 \
@@ -54,7 +56,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
       nemo-app
     ```
 
-5.  A aplicação estará disponível em [http://localhost:8000](http://localhost:8000).
+6.  A aplicação estará disponível em [http://localhost:8000](http://localhost:8000).
 
 ### Opção 2: Configuração Local
 
