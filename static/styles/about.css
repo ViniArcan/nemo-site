@@ -84,3 +84,91 @@
         padding: 20px;
     }
 }
+
+/* --- Team Member Styles (Inside Accordion) --- */
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 30px;
+}
+
+.member-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 220px; /* Give cards a consistent base width */
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.member-card img {
+    width: 100%;
+    height: 220px; /* Made height match width for a square look */
+    object-fit: cover;
+}
+
+.member-info {
+    padding: 20px 15px;
+}
+
+.member-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.member-email {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.team-subheading {
+    /* --- Copied from .about-section h2 --- */
+    display: inline-block; /* Shrinks the border to fit the text */
+    font-size: 2.0rem;      /* Slightly smaller than main titles */
+    font-weight: bold;
+    margin-bottom: 25px;    /* Adjusted margin */
+    padding-bottom: 8px;   /* Adjusted padding */
+    border-bottom: 2px solid #a6e1ff; /* Added underline */
+    color: #070f43;
+    text-align: center;     /* Ensure centering */
+    /* --- End Copy --- */
+    
+    margin-top: 40px; /* Keep the top margin */
+}
+
+/* Add this to center the subheading block itself */
+.accordion-body {
+    text-align: center; /* Center inline/inline-block children */
+}
+
+#teamAccordion .accordion-button {
+    /* Apply styles similar to .about-section h2 */
+    font-size: 1.5rem;      /* Match the h2 size */
+    font-weight: bold;    /* Match the h2 weight */
+    color: #070f43;     /* Match the h2 color */
+
+    /* Override Bootstrap defaults for a cleaner look when collapsed */
+    background-color: transparent; 
+    box-shadow: none; 
+}
+
+/* Optional: Style when the accordion is open */
+#teamAccordion .accordion-button:not(.collapsed) {
+    background-color: #f8f9fa; /* Light background when open */
+    color: #070f43;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125); /* Default Bootstrap separator */
+}
+
+/* Ensure focus outline is still visible for accessibility */
+#teamAccordion .accordion-button:focus {
+    box-shadow: 0 0 0 .25rem rgba(13,110,253,.25); 
+}

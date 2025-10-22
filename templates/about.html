@@ -36,7 +36,75 @@
         <div class="about-image-container">
             <img src="{{ url_for('static', filename='imgs/index-imgs/imc_jornalusp_grupo_nemo_matematica_icmc_usp.webp') }}" alt="Foto do grupo NEMO">
         </div>
+
     </section>
+
+    <div class="accordion mt-4" id="teamAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTeam">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTeam">
+                    Conheça a Equipe
+                </button>
+            </h2>
+            <div id="collapseTeam" class="accordion-collapse collapse" data-bs-parent="#teamAccordion">
+                <div class="accordion-body">
+
+                    <h4 class="team-subheading">Membros da Banca</h4>
+                    <div class="team-grid">
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.a@usp.br</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.b@usp.br</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.c@usp.br</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="team-subheading mt-4">Membros Anteriores</h4> {# Added margin-top #}
+                    <div class="team-grid">
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.d@usp.br</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.e@usp.br</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <img src="{{ url_for('static', filename='uploads/default_avatar.png') }}" alt="Foto de Membro">
+                            <div class="member-info">
+                                <h5 class="member-name">Nome do Membro</h5>
+                                <p class="member-email">membro.f@usp.br</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <section class="about-section" id="quais-atividades-nemo">
         <h2>Quais as atividades do NEMO?</h2>
