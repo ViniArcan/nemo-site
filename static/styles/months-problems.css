@@ -55,7 +55,12 @@
 
 .problem-item-solver {
     flex-shrink: 0;
-    text-align: right;
+    /* --- Add these lines --- */
+    display: flex;           /* Make it a flex container */
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center items horizontally (for mobile consistency) */
+    text-align: right;       /* Align text inside to the right (for desktop) */
+    /* ---------------------- */
 }
 
 

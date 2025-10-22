@@ -3,14 +3,14 @@
 title: "Problema de Agosto"
 date: 2025-08-01
 desc: "Descrição do problema."
-image: "uploads/your-image-name.png"
+image: "uploads/greg.png"
 post_type: Month-Problem
 status: published
 
 # --- Problem Specific Fields ---
 is_solved: true
-solver_name: ""
-solver_image: "uploads/solver-picture.png"
+solver_name: "April on Melt"
+solver_image: "uploads/april.png"
 solution_content: |
     ## Solution
     

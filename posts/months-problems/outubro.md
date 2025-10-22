@@ -3,14 +3,14 @@
 title: "Problema de Outubro"
 date: 2025-10-01
 desc: "Descrioão do problema."
-image: "uploads/your-image-name.png"
+image: "uploads/puzzle.png"
 post_type: Month-Problem
 status: published
 
 # --- Problem Specific Fields ---
 is_solved: true
-solver_name: ""
-solver_image: "uploads/solver-picture.png"
+solver_name: "Peixe"
+solver_image: "uploads/peixe.png"
 solution_content: |
     ## Solution
     

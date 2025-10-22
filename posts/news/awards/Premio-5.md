@@ -1,4 +1,4 @@
-title: "Legal 5"
+title: "Premiação 5"
 date: 2016-10-04
 desc: "A brief, one-sentence description of the news article."
 author_email: "author@example.com"

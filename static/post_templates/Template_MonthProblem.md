@@ -2,15 +2,15 @@
 
 title: "Título do Problema do Mês"
 date:
-desc: "Descrioão do problema."
+desc: "Descrição do problema."
 image: "uploads/your-image-name.png"
 post_type: Month-Problem
-status: draft
+status: draft # draft ou published
 
 # --- Problem Specific Fields ---
 is_solved: false
 solver_name: ""
-solver_image: "uploads/solver-picture.png"
+solver_image: "uploads/solver-picture.jpg"
 solution_content: |
     ## Solution
     

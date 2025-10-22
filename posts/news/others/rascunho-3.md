@@ -1,13 +1,13 @@
 ---
 
-title: "Título da Notícia"
-date:
+title: "Notícia Rascunho 3"
+date: 2025-10-22
 desc: "Breve descrição da notícia."
-author_email: "author@example.com" # Opcional
+author_email: "author@example.com" # Optional
 image: "uploads/your-image-name.png"
 post_type: News
-category: "General" # "Award" ou "General"
-status: draft # draft ou published
+category: "General" # "Award" or "General"
+status: draft
 
 ---
 

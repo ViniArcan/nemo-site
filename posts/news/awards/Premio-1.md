@@ -1,4 +1,4 @@
-title: "Premio 1"
+title: "Premiação 1"
 date: 2013-10-09
 desc: "A brief, one-sentence description of the news article."
 author_email: "author@example.com"

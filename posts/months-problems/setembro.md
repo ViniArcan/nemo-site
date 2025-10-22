@@ -1,14 +1,14 @@
 title: "Problema de Setembro"
 date: 2025-09-01
 desc: "A short description of the problem."
-image: "uploads/chess.jpg"
+image: "uploads/cube.png"
 post_type: Month-Problem
 status: published
 
 # --- Problem Specific Fields ---
 is_solved: true
 solver_name: "Peixinho"
-solver_image: "uploads/solver-picture.jpg"
+solver_image: "uploads/peixe-azul.png"
 solution_content: |
     ## Solution
     
