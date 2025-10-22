@@ -1,0 +1,43 @@
+.draft-list a {
+    display: block;
+    padding: 15px 10px;
+    border-bottom: 1px solid #dee2e6;
+    text-decoration: none;
+    color: #212529;
+}
+.draft-list a:hover {
+    background-color: #f8f9fa;
+}
+.draft-list h5 {
+    margin: 0 0 5px 0;
+}
+.draft-list p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.draft-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+}
+.draft-item:hover {
+    background-color: #f8f9fa;
+}
+.draft-link {
+    flex-grow: 1;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: #212529;
+}
+.delete-button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

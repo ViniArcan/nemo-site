@@ -1,0 +1,145 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/indexpage.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post-summary.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/shorten-paragraphs-inside-posts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/responsive-grid.js') }}"></script>
+
+<script>
+function adjustContentForNavbar() {
+    const navbar = document.getElementById('main-navbar');
+    const content = document.querySelector('.logocominfo'); // Selects your main content section
+
+    if (navbar && content) {
+        const navbarHeight = navbar.offsetHeight;
+        content.style.paddingTop = `${navbarHeight}px`;
+    }
+    }
+
+    // Run the function when the page is ready
+    window.addEventListener('DOMContentLoaded', adjustContentForNavbar);
+    // Re-run it if the window resizes (in case the navbar height changes)
+    window.addEventListener('resize', adjustContentForNavbar);
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="logocominfo">
+    <video autoplay muted>
+        <source src="{{ url_for('static', filename='/videos/FishCurve.webm') }}" type="video/webm">
+        Seu navegador não suporta vídeos!
+    </video>
+    <div class="textos-logo">
+        <p>Núcleo de Estudos de Matemática Olímpica</p>
+    </div>
+    
+</div>
+
+<div class="conteudo">
+    <div class="tab-container">
+        <ul class="nav nav-tabs" id="introTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="about-us-tab" data-bs-toggle="tab" data-bs-target="#about-us-pane" type="button" role="tab" aria-selected="true">
+                    Sobre Nós
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="olympiads-tab" data-bs-toggle="tab" data-bs-target="#olympiads-pane" type="button" role="tab" aria-selected="false">
+                    O que são Olimpíadas?
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="introTabsContent">
+            <div class="tab-pane fade show active" id="about-us-pane" role="tabpanel">
+                <div class="tab-pane-content">
+                    <div class="tab-text-content">
+                        <h1>Sobre Nós</h1>
+                        <p>O <strong>NEMO</strong> é um grupo de extensão do ICMC, sediado na USP de São Carlos, cujo foco é realizar
+                            <strong>treinamentos para olimpíadas de matemática universitárias</strong>.
+                        </p>
+                        <p>Realizamos encontros semanais durante os quais listas de problemas de matemática olímpica são
+                            discutidos e resolvidos. Acreditamos que, quando todos estão trabalhando nesses problemas,
+                            ideias de várias pessoas se combinam para dar origem a uma solução. Por isso, <b>todos são
+                                bem-vindos</b> a participar dos nossos encontros.
+                            </p>
+                        <a role="button" class="btn btn-outline-primary" href="/about"> Saiba mais </a>
+                    </div>
+                    <div class="tab-image-container">
+                        <img src="{{ url_for('static', filename='imgs/index-imgs/imc_jornalusp_grupo_nemo_matematica_icmc_usp.webp') }}" alt="Membros do NEMO premiados na IMC 2022">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="olympiads-pane" role="tabpanel">
+                <div class="tab-pane-content">
+                    <div class="tab-image-container">
+                        <img src="{{ url_for('static', filename='imgs/index-imgs/obm-2017-medalhas.webp') }}" alt="Medalhas da Olimpíada Brasileira de Matemática">
+                    </div>
+                    <div class="tab-text-content">
+                        <h1>O que são olimpíadas de matemática?</h1>
+                        <p>Olimpíadas de matemática são competições de matemática que desafiam os competidores a resolverem
+                            problemas mais difíceis que aqueles tipicamente utilizados em provas normais, isto é, aquelas
+                            que testam conhecimentos específicos.</p>
+                        <p>Diferentemente dessas provas, os problemas das olimpíadas envolvem o <strong> uso de argumentos
+                                matemáticos de maneira criativa e esperta, o que faz com que sejam muito
+                                divertidos</strong>.</p>
+                        <a role="button" class="btn btn-outline-primary" href="/about#como-sao-problemas"> Saiba mais </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="noticias">
+        <section class="latest-news">
+            <h2 class="section-title">Últimas Notícias</h2>
+            <div class="post-showcase">
+                {% for post in news_posts %}
+                    <div class="news-post-item"> 
+                        <div class="resumo-post">
+                            <a href="{{ url_for('view_post', path=post.path) }}" style="text-decoration: none; color: inherit;">
+                                {% if post.meta.image %}
+                                <div class="post-img-container">
+                                    <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
+                                </div>
+                                {% endif %}
+                                <div class="post-resumo-texto">
+                                    <h4>{{ post.meta.title }}</h4>
+                                    <p>{{ post.meta.desc }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="button-container initially-hidden">
+                <a href="/news" class="btn btn-outline-primary btn-lg show-more-btn">Ver Todas as Notícias</a>
+            </div>
+        </section>
+    </div>
+
+    <div class="ultimo-problema-mes">
+        {% if problem_post %}
+        <section class="problem-showcase">
+            {% if problem_post.meta.image %}
+            <div class="problem-image" style="background-image: url('{{ url_for('static', filename=problem_post.meta.image) }}');"></div>
+            {% endif %}
+            <div class="problem-content">
+                <h2 class="section-title">Problema do Mês</h2>
+                <h3 class="problem-title">{{ problem_post.meta.title }}</h3>
+                <p class="problem-desc">{{ problem_post.meta.desc }}</p>
+                <a href="{{ url_for('view_post', path=problem_post.path) }}" class="btn btn-outline-light btn-lg">Ver Problema Completo</a>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

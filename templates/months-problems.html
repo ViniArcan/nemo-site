@@ -1,0 +1,80 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/separador.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/generic-pages.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/months-problems.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/video-size-adjust.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="div-separadora">
+    <h1 id="text-to-measure"> $\text{Problemas do Mês}$ </h1>
+    <video id="video-to-resize" autoplay muted playsinline>
+        <source src="{{ url_for('static', filename='videos/titles/months-problems.webm') }}" type="video/webm">
+    </video>
+</div>
+
+<div class="central-content">
+
+    {% if current_problem %}
+    <div class="problem-section current-problem-section">
+        <h2 class="section-title">Problema do Mês Atual</h2>
+        <a href="{{ url_for('view_post', path=current_problem.path) }}" class="problem-item open-problem">
+            {% if current_problem.meta.image %}
+            <div class="problem-item-img">
+                <img src="{{ url_for('static', filename=current_problem.meta.image) }}" alt="Problem Image">
+            </div>
+            {% endif %}
+            <div class="problem-item-info">
+                <h5>{{ current_problem.meta.title }}</h5>
+                <hr>
+                <p>{{ current_problem.meta.desc }}</p>
+                <hr>
+                <p class="status-open">Status: Em Aberto</p>
+            </div>
+            {# No solver info for open problems #}
+        </a>
+    </div>
+    {% else %}
+        <p class="no-current-problem">Não há problema do mês em aberto no momento.</p>
+    {% endif %}
+
+    {% if solved_problems %}
+    <div class="problem-section solved-problems-section">
+        <h2 class="section-title">Problemas Anteriores</h2>
+        <div class="problem-list">
+            {% for post in solved_problems %}
+                <a href="{{ url_for('view_post', path=post.path) }}" class="problem-item">
+                    {% if post.meta.image %}
+                    <div class="problem-item-img">
+                        <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Problem Image">
+                    </div>
+                    {% endif %}
+                    <div class="problem-item-info">
+                        <h5>{{ post.meta.title }}</h5>
+                        <hr>
+                        <p>{{ post.meta.desc }}</p>
+                    </div>
+                    <div class="problem-item-solver">
+                        <p class="status-solved">Premiado:</p>
+                        {% if post.meta.solver_image %}
+                            <img src="{{ url_for('static', filename=post.meta.solver_image) }}" alt="Solver" class="solver-avatar">
+                        {% endif %}
+                        <p class="solver-name"><strong>{{ post.meta.solver_name }}</strong></p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <hr>
+
+</div>
+{% endblock %}

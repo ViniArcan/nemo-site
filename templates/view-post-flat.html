@@ -1,0 +1,77 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/generic-pages.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/post-content.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/view-post.css') }}">
+<style>
+    .edit-post-button {
+        position: absolute;
+        top: 20px; /* Adjust as needed */
+        right: 20px; /* Adjust as needed */
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9em;
+        z-index: 10; /* Ensure it's above the header image */
+    }
+    .edit-post-button:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+    /* Add position: relative to the container */
+    .post-container {
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="post-container">
+
+    {% if logado %}
+        <a href="{{ url_for('post_editor', path=post.path) }}" class="edit-post-button">Edit Post</a>
+    {% endif %}
+
+    <header class="post-header" {% if post.meta.image %} style="background-image: url('{{ url_for('static', filename=post.meta.image) }}');"{% endif %}>
+        <div class="header-overlay">
+            <h1 class="post-title">{{ post.meta.title }}</h1>
+
+            <div class="post-meta">
+                {% if post.path.startswith('news/') %}
+                    <span class="meta-date">Publicado em {{ post.meta.date.strftime('%d/%m/%Y') }}</span>
+                    {% if author %}
+                        <span class="meta-author">por {{ author.name }}</span>
+                    {% endif %}
+                {% endif %}
+
+                {% if post.path.startswith('months-problems/') %}
+                    {% if post.meta.is_solved %}
+                        <span class="meta-status solved">Problema Resolvido</span>
+                    {% else %}
+                        <span class="meta-status open">Problema em Aberto</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="post-body-wrapper">
+        <div class="post-body">
+            {% if post.path.startswith('months-problems/') and post.meta.is_solved %}
+            <div class="solver-info">
+                {% if post.meta.solver_image %}
+                <img src="{{ url_for('static', filename=post.meta.solver_image) }}" alt="Foto de {{ post.meta.solver_name }}" class="solver-image">
+                {% endif %}
+                <h3 class="solver-name">Premiado: {{ post.meta.solver_name }}</h3>
+            </div>
+            <hr class="solver-separator">
+            {% endif %}
+            {{ post_html | safe }}
+        </div>
+    </div>
+
+</article>
+{% endblock %}

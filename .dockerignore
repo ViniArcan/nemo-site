@@ -1,0 +1,19 @@
+# Ignore a C library that's not used in this project
+*.so
+
+# Ignore the virtual environment
+.venv
+venv
+env
+
+# Ignore sensitive files
+.env
+
+# Ignore miscellaneous files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache
+.coverage
+*.log

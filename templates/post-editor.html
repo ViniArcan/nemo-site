@@ -1,0 +1,120 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+<style>
+    #editor-form { margin-top: 70px; padding: 20px 5%; }
+    .EasyMDEContainer { margin-top: 10px; border: 1px solid #ccc; } /* Add border */
+    .editor-header { padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; margin-bottom: 20px;}
+    .editor-header h2 { margin: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<form id="editor-form" method="POST" action="{{ url_for('save_post', path=post.path if post.path else '_new') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <div class="editor-header">
+        <h2>Editando: {{ post.title or 'New Post' }}</h2>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="file" id="asset-upload-input" style="display: none;">
+                <button type="button" onclick="document.getElementById('asset-upload-input').click();" style="padding: 10px 15px;">
+                    Importar algum arquivo
+                </button>
+                <span id="upload-status" style="font-size: 0.8em; margin-left: 10px;"></span>
+            </div>
+
+        <div>
+            <button type="submit" form="editor-form" style="padding: 10px 20px;">
+                Salvar Conteúdo
+            </button>
+
+            {% if post.path %}
+            <button type="submit" form="delete-post-form" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; font-size: 1em; cursor: pointer; margin-left: 10px;">
+                Deletar post
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <textarea id="post-content" name="content">{{ post.content or '' }}</textarea>
+
+</form> {% if post.path %}
+<form id="delete-post-form" action="{{ url_for('delete_post_file', path=post.path) }}" method="POST" style="display: none;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+</form>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize EasyMDE with default preview
+        const easyMDE = new EasyMDE({
+            element: document.getElementById('post-content'),
+            spellChecker: false,
+            // Let EasyMDE handle its default preview which uses Marked.js
+        });
+        const deleteForm = document.getElementById('delete-post-form');
+        if (deleteForm) {
+            deleteForm.addEventListener('submit', function(event) {
+                // Show the confirmation dialog
+                const confirmed = confirm('Are you sure you want to permanently delete this post?');
+
+                // If the user clicks "Cancel", prevent the form from submitting
+                if (!confirmed) {
+                    event.preventDefault();
+                }
+            });
+        }
+
+        const fileInput = document.getElementById('asset-upload-input');
+        const uploadStatus = document.getElementById('upload-status');
+
+        // Add listener to the hidden file input's 'change' event
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length === 0) {
+                // User cancelled the file selection
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            uploadStatus.textContent = 'Uploading...';
+
+            fetch("{{ url_for('upload_asset') }}", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    uploadStatus.textContent = `Error: ${data.error}`;
+                } else if (data.markdownLink) {
+                    uploadStatus.innerHTML = `Success! Link: <input type="text" value="${data.markdownLink}" readonly onclick="this.select();" style="width: 200px; font-size: 0.9em;"> Copy this link.`;
+                }
+                // Clear the input value AFTER processing, whether success or error
+                fileInput.value = '';
+            })
+            .catch(error => {
+                console.error('Upload failed:', error);
+                uploadStatus.textContent = 'Upload failed!';
+                fileInput.value = ''; // Also clear on fetch error
+            });
+        });
+
+    });
+</script>
+{% endblock %}

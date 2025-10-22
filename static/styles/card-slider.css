@@ -1,0 +1,95 @@
+/* static/styles/card-slider.css */
+
+.card-slider-wrapper {
+    position: relative;
+    max-width: 1200px; /* Adjust max-width as needed */
+    margin: 20px auto;
+}
+
+.card-slider {
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    padding: 0 50px; /* Space for arrows */
+    cursor: grab; /* Indicate draggable */
+    scroll-behavior: smooth; /* Make button clicks smooth */
+
+    /* Hide scrollbar visually */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.card-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Optional: Change cursor during drag */
+.card-slider.active-drag {
+    cursor: grabbing;
+}
+
+.card-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    flex: 0 0 33.33%; /* Show 3 cards at a time */
+    max-width: 33.33%;
+    padding: 0 15px; /* Spacing between cards */
+    box-sizing: border-box;
+}
+
+/* Ensure the card inside the slide behaves well */
+.slide .resumo-post {
+    width: 100%; /* Make card fill the slide */
+    margin: 0; /* Override default margins */
+    height: 100%; /* Ensure cards in a row have same height for alignment */
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.slider-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slider-arrow.prev {
+    left: 10px;
+}
+
+.slider-arrow.next {
+    right: 10px;
+}
+
+/* Responsive adjustments (Example: show 1 card on small screens) */
+@media (max-width: 992px) { /* Adjusted breakpoint */
+    .slide {
+        flex: 0 0 50%; /* Show 2 cards */
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .slide {
+        flex: 0 0 100%; /* Show 1 card */
+        max-width: 100%;
+    }
+    .card-slider {
+        padding: 0 40px; /* Adjust padding for smaller arrows */
+    }
+    .slider-arrow {
+        font-size: 1.5rem;
+        padding: 5px 10px;
+    }
+    .slider-arrow.prev { left: 5px; }
+    .slider-arrow.next { right: 5px; }
+}

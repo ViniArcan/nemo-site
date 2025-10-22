@@ -1,0 +1,163 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+<style>
+    #editor-form { margin-top: 70px; padding: 20px 5%; }
+    .EasyMDEContainer { margin-top: 10px; border: 1px solid #ccc; }
+    .editor-header { padding: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; margin-bottom: 20px;}
+    .editor-header h2 { margin: 0; }
+    .editor-header label { margin-right: 10px; font-weight: bold; }
+</style>
+{% endblock %}
+
+{% block content %}
+<form id="editor-form" method="POST" action="{{ url_for('create_post_save') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <div class="editor-header">
+        <h2>Criar Novo Post</h2>
+            <div>
+                <label for="post_type">Tipo do Post:</label>
+                    <select id="post_type" name="post_type" style="padding: 8px;">
+                    <option value="News">Notícias</option>
+                    <option value="Month-Problem">Problema do Mês</option>
+                </select>
+            </div>
+
+            <div> <label for="filename_base">Nome do Arquivo (Opcional):</label>
+                <input type="text" id="filename_base" name="filename_base" placeholder="meu-titulo-de-post" style="padding: 8px;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="file" id="asset-upload-input" style="display: none;">
+                <button type="button" onclick="document.getElementById('asset-upload-input').click();" style="padding: 10px 15px;">
+                    Importar algum arquivo
+                </button>
+                <span id="upload-status" style="font-size: 0.8em; margin-left: 10px;"></span>
+            </div>
+
+            <button type="submit" style="padding: 10px 20px; margin-left: 20px;">Salvar Post</button>
+        </div>
+    </div>
+
+    <textarea id="post-content" name="full_content"></textarea>
+
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize EasyMDE
+        const easyMDE = new EasyMDE({
+            element: document.getElementById('post-content'),
+            spellChecker: false,
+        });
+
+        const postTypeSelector = document.getElementById('post_type');
+
+        // Function to load template content
+        function loadTemplate(type) {
+            let templatePath = '';
+            if (type === 'News') {
+                // Use url_for to generate the correct path
+                templatePath = "{{ url_for('static', filename='post_templates/Template_News.md') }}";
+            } else if (type === 'Month-Problem') {
+                templatePath = "{{ url_for('static', filename='post_templates/Template_MonthProblem.md') }}";
+            }
+
+            if (templatePath) {
+                // Ask for confirmation if the editor is not empty
+                if (easyMDE.value().trim() !== '') {
+                    if (!confirm('Loading a template will replace the current content. Are you sure?')) {
+                        // If user cancels, reset the dropdown to the previous value (or guess based on content)
+                        // This part is tricky, might need more logic depending on desired behavior.
+                        // For now, we just stop.
+                        return;
+                    }
+                }
+
+                fetch(templatePath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(text => {
+                        // --- ADD THIS DATE REPLACEMENT LOGIC ---
+                        // Get today's date in YYYY-MM-DD format
+                        const today = new Date();
+                        const year = today.getFullYear();
+                        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+                        const day = String(today.getDate()).padStart(2, '0');
+                        const formattedDate = `${year}-${month}-${day}`;
+
+                        // Replace the date line in the template text
+                        const updatedText = text.replace(/date:.*$/m, `date: ${formattedDate}`);
+                        // --- END OF DATE LOGIC ---
+
+                        easyMDE.value(updatedText); // Load the modified text into the editor
+                    })
+                    .catch(error => console.error('Error loading template:', error));
+            }
+        }
+
+    // Load the default template ('News') when the page loads
+    loadTemplate(postTypeSelector.value);
+
+    // Load a new template when the selection changes
+    postTypeSelector.addEventListener('change', function() {
+        loadTemplate(this.value);
+    });
+
+    const fileInput = document.getElementById('asset-upload-input');
+    const uploadStatus = document.getElementById('upload-status');
+
+    // Add listener to the hidden file input's 'change' event
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length === 0) {
+            // User cancelled the file selection
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        uploadStatus.textContent = 'Uploading...';
+
+        fetch("{{ url_for('upload_asset') }}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                uploadStatus.textContent = `Error: ${data.error}`;
+            } else if (data.markdownLink) {
+                uploadStatus.innerHTML = `Success! Link: <input type="text" value="${data.markdownLink}" readonly onclick="this.select();" style="width: 200px; font-size: 0.9em;"> Copy this link.`;
+            }
+            // Clear the input value AFTER processing, whether success or error
+            fileInput.value = '';
+        })
+        .catch(error => {
+            console.error('Upload failed:', error);
+            uploadStatus.textContent = 'Upload failed!';
+            fileInput.value = ''; // Also clear on fetch error
+        });
+    });
+
+    });
+</script>
+{% endblock %}

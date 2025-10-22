@@ -1,0 +1,181 @@
+{% extends './partials/base_layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/separador.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/generic-pages.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/accordion.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/faq.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/shorten-paragraphs-inside-posts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/video-size-adjust.js') }}"></script>
+
+<script>
+    if (window.location.href.indexOf('#') != -1) {
+        let tag = window.location.href.split('#')[1];
+        console.log(tag);
+        if (tag === "encontros-semanais") {
+            let div_encontros = document.getElementById('encontros-semanais');
+            let botao = div_encontros.getElementsByTagName('button')[0];
+            botao.setAttribute('aria-expanded', 'true');
+            botao.classList.remove('collapsed');
+            let div3 = div_encontros.getElementsByClassName('collapse')[0];
+            div3.classList.add('show');
+        }
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="div-separadora">
+
+    <h1 id="text-to-measure"> $\text{FAQ}$ </h1>
+
+    <video id="video-to-resize" autoplay muted playsinline>
+        <source src="{{ url_for('static', filename='videos/titles/faq.webm') }}" type="video/webm">
+    </video>
+
+</div>
+
+<div class="central-content">
+    
+    <h2 class="section-title">Perguntas Frequentes</h2>
+
+    <div class="accordion" id="faqAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading1">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                    O que é o grupo de extensão NEMO?
+                </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Veja <a href="/about#quem-somos">Quem somos?</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                    O que o NEMO faz?
+                </button>
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Veja <a href="/about#quais-atividades-nemo">Quais as atividades do NEMO?</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item" id="encontros-semanais">
+            <h2 class="accordion-header" id="heading3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                    Como funcionam os encontros semanais?
+                </button>
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>No início do ano, é decidido por enquete no nosso <a href="https://t.me/nemoavisos">canal de avisos</a> do Telegram o dia da semana e o horário dos encontros semanais.</p>
+                    <p>Antes do dia desses encontros, a coordenação elabora e manda no canal de avisos uma lista de problemas a serem discutidos no encontro. A ideia é que você dê uma olhada por cima nos problemas da lista durante esse tempo e, no encontro, o autor da lista e voluntários que também tenham resolvido apresentem suas soluções.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                    O que é o projeto Problema do Mês?
+                </button>
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Veja <a href="/months-problems">Problemas do mês</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                    O que são olimpíadas de matemática?
+                </button>
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>São competições de matemática cujos problemas tem soluções que envolvem ideias criativas. Veja um exemplo de problema <a href="/about#como-sao-problemas">aqui</a>.</p>
+                    <p>A maioria das olimpíadas tem problemas assim e atribui a cada um deles uma pontuação, de acordo com critérios de correção pré-estabelecidos. Quanto mais pontos você obtiver, mais chance de ganhar uma medalha!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                    O que é e como é a Olimpíada Brasileira de Matemática (OBM)?
+                </button>
+            </h2>
+            <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <div class="img-container img-olimpiada">
+                        <img src="{{ url_for('static', filename='imgs/faq-page/logo-obm.jpg') }}" alt="Logo da OBM">
+                    </div>
+                    <p>Um dos objetivos da OBM é interferir decisivamente em prol da melhoria do ensino de Matemática no Brasil, estimulando alunos e professores a um aprimoramento maior propiciado pela participação em olimpíadas.</p>
+                    <p>Para mais informações, visite o <a href="https://www.obm.org.br">site oficial</a> deles.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+                    O que é e como é a Competição Elon Lages Lima de Matemática (CELL)?
+                </button>
+            </h2>
+            <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>A CELL, cujo nome é uma homenagem ao falecido matemático brasileiro Elon Lages, é uma competição criada pela Associação da Olimpíada Brasileira de Matemática (AOBM).</p>
+                    <p>Para mais informações, visite o site oficial deles.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8">
+                    O que é e como é a International Mathematics Competition (IMC)?
+                </button>
+            </h2>
+            <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>É a maior olimpíada internacional de matemática universitária.</p>
+                    <p>Para mais informações sobre a competição, visite o <a href="https://www.imc-math.org.uk">site oficial</a> deles.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading9">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9">
+                    O que é e como é a Competencia Iberoamericana Interuniversitaria de Matemáticas (CIIM)?
+                </button>
+            </h2>
+            <div id="collapse9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>A Competição Ibero-americana Interuniversitaria de Matemática (CIIM) tem como objetivo incentivar o estudo de matemática e a excelência acadêmica da comunidade universitária ibero-americana.</p>
+                    <p>Para mais informações, visite o <a href="http://ciim.uan.edu.co">site oficial</a> deles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+</div>
+
+
+
+{% endblock %}
