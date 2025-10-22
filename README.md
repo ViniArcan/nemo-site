@@ -33,6 +33,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
 
 2.  **Crie um arquivo de ambiente:**
     Crie um arquivo chamado `.env` na raiz do projeto e adicione o seguinte conteúdo. **Certifique-se de alterar a `SECRET_KEY` para uma string nova e aleatória.**
+    (Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` tente prosseguir)
     ```
     SECRET_KEY='sua_chave_super_secreta_aqui'
     DATABASE_URL='sqlite:///posts.db'
