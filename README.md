@@ -1,6 +1,6 @@
 # Site do NEMO
 
-Bem-vindo ao repositório oficial do site do NEMO (Núcleo de Estudos de Matemática Olímpica), um grupo de extensão USP de São Carlos dedicado à matemática competitiva e à resolução de problemas.
+Bem-vindo ao repositório oficial do site do NEMO (Núcleo de Estudos de Matemática Olímpica), um grupo de extensão da USP de São Carlos dedicado à matemática competitiva e à resolução de problemas.
 
 ## Sobre Este Projeto
 
