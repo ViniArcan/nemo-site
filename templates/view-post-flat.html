@@ -32,7 +32,7 @@
 <article class="post-container">
 
     {% if logado %}
-        <a href="{{ url_for('post_editor', path=post.path) }}" class="edit-post-button">Edit Post</a>
+        <a href="{{ url_for('post_editor', path=post.path) }}" class="edit-post-button">Editar Post</a>
     {% endif %}
 
     <header class="post-header" {% if post.meta.image %} style="background-image: url('{{ url_for('static', filename=post.meta.image) }}');"{% endif %}>

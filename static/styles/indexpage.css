@@ -86,6 +86,7 @@ body {
 
 .tab-text-content {
     flex: 1;
+    overflow-wrap: break-word;
 }
 
 .tab-text-content h1 {
@@ -109,8 +110,21 @@ body {
 
 /* --- 4. LATEST NEWS SECTION --- */
 .latest-news {
-    padding: 80px 10%;
+    padding: 20px 10% 40px 10%; 
     background-color: #ffffff;
+}
+
+.latest-news .section-title {
+    /* --- Alignment --- */
+    text-align: left;     /* Aligns text to the left */
+    display: block;       /* Makes the element take full width */
+    margin-bottom: 20px; 
+    
+    /* --- Styling (from .tab-text-content h1) --- */
+    font-size: 3rem;      /* Match the tab title size */
+    font-weight: bold;    /* Ensure it's bold */
+    color: #070f43;     /* Match the tab title color */
+    border-bottom: none;  /* Remove the underline for a cleaner look */
 }
 
 .post-showcase {
@@ -184,6 +198,8 @@ body {
     .tab-text-content {
         text-align: center;
         order: 2;
+        padding-left: 15px; /* Add space on the left */
+        padding-right: 15px; /* Add space on the right */
     }
     .tab-image-container {
         order: 1;

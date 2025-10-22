@@ -50,7 +50,7 @@ function adjustContentForNavbar() {
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="olympiads-tab" data-bs-toggle="tab" data-bs-target="#olympiads-pane" type="button" role="tab" aria-selected="false">
-                    O que são Olimpíadas?
+                    O que são as Olimpíadas?
                 </button>
             </li>
         </ul>
@@ -82,7 +82,7 @@ function adjustContentForNavbar() {
                         <img src="{{ url_for('static', filename='imgs/index-imgs/obm-2017-medalhas.webp') }}" alt="Medalhas da Olimpíada Brasileira de Matemática">
                     </div>
                     <div class="tab-text-content">
-                        <h1>O que são olimpíadas de matemática?</h1>
+                        <h1>Sobre as Olimpíadas</h1>
                         <p>Olimpíadas de matemática são competições de matemática que desafiam os competidores a resolverem
                             problemas mais difíceis que aqueles tipicamente utilizados em provas normais, isto é, aquelas
                             que testam conhecimentos específicos.</p>
@@ -98,7 +98,7 @@ function adjustContentForNavbar() {
 
     <div class="noticias">
         <section class="latest-news">
-            <h2 class="section-title">Últimas Notícias</h2>
+            <h2 class="section-title">Notícias e Premiações</h2>
             <div class="post-showcase">
                 {% for post in news_posts %}
                     <div class="news-post-item"> 
@@ -120,7 +120,7 @@ function adjustContentForNavbar() {
             </div>
             
             <div class="button-container initially-hidden">
-                <a href="/news" class="btn btn-outline-primary btn-lg show-more-btn">Ver Todas as Notícias</a>
+                <a href="/news" class="btn btn-outline-primary btn-lg show-more-btn">Ver Todas as Publicações</a>
             </div>
         </section>
     </div>
