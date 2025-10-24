@@ -2,15 +2,16 @@
 
 title: "Problema de Outubro"
 date: 2025-10-01
-desc: "Descrioão do problema."
-image: "uploads/puzzle.png"
+desc: "A short description of the problem."
+image: "uploads/cube.png"
+banner: "uploads/banner-cube.png"
 post_type: Month-Problem
 status: published
 
 # --- Problem Specific Fields ---
 is_solved: true
-solver_name: "Peixe"
-solver_image: "uploads/peixe.png"
+solver_name: "Peixinho"
+solver_image: "uploads/peixe-azul.png"
 solution_content: |
     ## Solution
     
@@ -21,4 +22,10 @@ solution_content: |
 
 ## Problem Statement
 
-Write the main body of the problem statement here.
+Here is the problem statement for this month:
+
+<a href="/static/pdfs/problema-outubro-2025.pdf" class="pdf-embed">Download the problem PDF.</a>
+
+And here is the solution:
+
+<a href="/static/pdfs/solucao-outubro-2025.pdf" class="pdf-embed">Download the solution PDF.</a>

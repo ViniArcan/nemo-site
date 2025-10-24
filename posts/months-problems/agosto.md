@@ -4,6 +4,7 @@ title: "Problema de Agosto"
 date: 2025-08-01
 desc: "Descrição do problema."
 image: "uploads/greg.png"
+banner: "uploads/banner-image.png"
 post_type: Month-Problem
 status: published
 

@@ -18,7 +18,7 @@
 .header-overlay {
     position: relative;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.75); /* Dark overlay */
     padding: 20px;
     border-radius: 5px;
     display: inline-block; /* Shrinks to fit content */
@@ -28,7 +28,7 @@
     font-size: 3rem;
     font-weight: bold;
     margin: 0;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* --- Metadata Styling --- */

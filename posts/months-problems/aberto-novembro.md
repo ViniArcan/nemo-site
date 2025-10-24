@@ -1,7 +1,10 @@
+---
+
 title: "Problema de Novembro"
 date: 2025-10-08
 desc: "A short description of the problem."
 image: "uploads/chess.jpg"
+banner: "uploads/banner-image.png"
 post_type: Month-Problem
 status: published
 

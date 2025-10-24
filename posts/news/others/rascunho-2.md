@@ -5,6 +5,7 @@ date: 2025-10-22
 desc: "Breve descrição da notícia."
 author_email: "author@example.com" # Optional
 image: "uploads/your-image-name.png"
+banner: "uploads/banner-image.png"
 post_type: News
 category: "General" # "Award" or "General"
 status: draft
