@@ -4,6 +4,7 @@ title: "Título do Problema do Mês"
 date:
 desc: "Descrição do problema."
 image: "uploads/your-image-name.png"
+banner: "uploads/banner-image.png"
 post_type: Month-Problem
 status: draft # draft ou published
 

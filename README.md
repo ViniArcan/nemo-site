@@ -44,7 +44,14 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     ```bash
     sudo docker build -t nemo-app .
     ```
-
+    
+    Caso não funcione de imediato, tente rodar antes:
+    
+    ```bash
+    sudo systemctl start docker
+    ```
+    Disso, tente rodar novamente o comandor anterior a esse.
+    
 5.  **Execute o contêiner Docker:**
     Para garantir que seus posts, uploads e o banco de dados sejam salvos permanentemente, execute o contêiner com volumes, que conectam pastas do seu computador ao contêiner:
     ```bash
