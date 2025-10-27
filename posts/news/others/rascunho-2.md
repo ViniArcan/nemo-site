@@ -2,7 +2,7 @@
 
 title: "Notícia Rascunho 2"
 date: 2025-10-22
-desc: "Breve descrição da notícia."
+desc: "Essa notícia ainda é um rascunho."
 author_email: "author@example.com" # Optional
 image: "uploads/your-image-name.png"
 banner: "uploads/banner-image.png"

@@ -121,6 +121,44 @@ def register_routes(app):
         award_posts = [p for p in sorted_news if p.path.startswith('news/awards/')]
         other_news_posts = [p for p in sorted_news if p.path.startswith('news/others/')]
         return render_template('news.html', logado=current_user.is_authenticated, award_posts=award_posts, other_news_posts=other_news_posts)
+    
+    @app.route('/news-awards')
+    def news_awards():
+        # 1. Get all published news posts
+        news_pages = [p for p in pages if p.meta.get('status') == 'published' and p.path.startswith('news/')]
+        
+        # 2. Sort them by date (reusing your existing logic)
+        sorted_news = sorted(news_pages, key=lambda p: p.meta.get('date', datetime.now()), reverse=True)
+        
+        # 3. Filter *only* for award posts
+        award_posts = [p for p in sorted_news if p.path.startswith('news/awards/')]
+        
+        # 4. Render the new template, passing only that list
+        return render_template(
+            'news-awards.html', 
+            logado=current_user.is_authenticated, 
+            award_posts=award_posts,
+            title="Prêmios e Conquistas" # Pass a title for the <title> tag
+        )
+    
+    @app.route('/news-general')
+    def news_general():
+        # 1. Get all published news posts
+        news_pages = [p for p in pages if p.meta.get('status') == 'published' and p.path.startswith('news/')]
+        
+        # 2. Sort them by date
+        sorted_news = sorted(news_pages, key=lambda p: p.meta.get('date', datetime.now()), reverse=True)
+        
+        # 3. Filter *only* for other news posts
+        other_news_posts = [p for p in sorted_news if p.path.startswith('news/others/')]
+        
+        # 4. Render the new template, passing only that list
+        return render_template(
+            'news-general.html', 
+            logado=current_user.is_authenticated, 
+            other_news_posts=other_news_posts,
+            title="Notícias Gerais" # Pass a title for the <title> tag
+        )
 
     @app.route('/team')
     def team(): return render_template('team.html', logado=current_user.is_authenticated)

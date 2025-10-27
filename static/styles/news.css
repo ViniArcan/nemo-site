@@ -57,3 +57,92 @@
         padding-right: 20px;
     }
 }
+
+/* 6. News List Layout (Inspired by months-problems.css) */
+.news-list-container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+
+.news-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 25px 15px;
+    border-bottom: 1px solid #dee2e6;
+    text-decoration: none;
+    color: #212529;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px; 
+}
+
+.news-list-item:hover {
+    background-color: #f8f9fa; /* Subtle hover effect */
+}
+
+/* Image Column */
+.news-item-img {
+    width: 200px; /* Fixed width for the image */
+    height: 150px; /* A 4:3 aspect ratio is good for news */
+    flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+.news-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Info Column (Title + Desc) */
+.news-item-info {
+    flex-grow: 1; /* Takes up the remaining space */
+}
+
+.news-item-info h4 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #070f43; /* Matches your section title color */
+    margin: 0 0 10px 0;
+}
+
+.news-item-info p {
+    margin: 0;
+    font-size: 0.95em;
+    color: #343a40;
+}
+
+/* Metadata Column (Date) */
+.news-item-meta {
+    flex-shrink: 0;
+    text-align: right;
+    width: 120px; /* Gives the date its own space */
+    font-weight: 500;
+    color: #6c757d;
+    padding-top: 5px; /* Aligns it nicely with the title */
+}
+
+/* --- Responsive Adjustments for Mobile --- */
+@media (max-width: 768px) {
+    .news-list-item {
+        flex-direction: column; /* Stack vertically on mobile */
+        align-items: center;    /* Center all content */
+        text-align: center;
+        gap: 15px;
+    }
+
+    .news-item-img {
+        width: 100%;
+        max-width: 350px; /* Allow image to be large */
+        height: auto;
+    }
+
+    .news-item-meta {
+        text-align: center;
+        margin-top: 10px;
+        width: 100%;
+        padding-top: 0;
+    }
+}
