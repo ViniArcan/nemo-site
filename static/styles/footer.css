@@ -5,35 +5,39 @@
     padding: 20px 30px;
     background-color: #d3efff;
     display: flex;
-    flex-direction: column;   /* CHANGED: Stacks children vertically */
-    align-items: center;      /* CHANGED: Centers children horizontally */
-    gap: 20px;                /* Space between copyright and the content below it */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-/* This new wrapper holds the links and location */
 .footer-content-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 60px; /* Space between the contact info and location */
+    gap: 60px;
 }
 
 .links-footer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Center the links if they wrap */
+    justify-content: center;
     gap: 25px;
 }
 
-.links-footer svg:hover {
-    opacity: 0.7;
-}
-
+/* This is the new/updated block */
 .footer-link-item {
     display: flex;
     align-items: center;
     gap: 8px;
+    text-decoration: none; /* Removes underline */
+    color: rgb(24, 24, 24); /* Sets link color */
+    transition: opacity 0.3s ease; /* Smooth hover */
+}
+
+/* Hover effect */
+.footer-link-item:hover {
+    opacity: 0.7;
 }
 
 /* Centralized paragraph styling */
@@ -50,11 +54,11 @@
 }
 
 .footer-location p {
-    font-weight: normal; /* Location text doesn't need to be bold */
+    font-weight: normal;
 }
 
 .copyright {
-    text-align: center; /* Ensures the copyright text itself is centered */
+    text-align: center;
 }
 
 /* Icon Colors */
@@ -72,4 +76,3 @@ body {
 article {
     flex-grow: 1;
 }
-

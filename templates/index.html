@@ -8,26 +8,8 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/shorten-paragraphs-inside-posts.js') }}"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-<script>
-function adjustContentForNavbar() {
-    const navbar = document.getElementById('main-navbar');
-    const content = document.querySelector('.logocominfo'); // Selects your main content section
-
-    if (navbar && content) {
-        const navbarHeight = navbar.offsetHeight;
-        content.style.paddingTop = `${navbarHeight}px`;
-    }
-    }
-
-    // Run the function when the page is ready
-    window.addEventListener('DOMContentLoaded', adjustContentForNavbar);
-    // Re-run it if the window resizes (in case the navbar height changes)
-    window.addEventListener('resize', adjustContentForNavbar);
-</script>
+<script src="{{ url_for('static', filename='js/swiper-init.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -78,7 +60,6 @@ function adjustContentForNavbar() {
                     </div>
                 </div>
             </div>
-
             <div class="tab-pane fade" id="olympiads-pane" role="tabpanel">
                 <div class="tab-pane-content">
                     <div class="tab-image-container">
@@ -103,13 +84,14 @@ function adjustContentForNavbar() {
         <section class="latest-news">
             <h2 class="section-title">Últimas Notícias</h2>
             
-            <div class="swiper-wrapper">
+            <div class="slider-wrapper">
+                
+                <div class="swiper-button-prev index-prev"></div>
 
-                <div class="slide-container swiper">
-                    <div class="card-wrapper swiper-wrapper"> 
+                <div id="indexSwiper" class="slide-container swiper">
+                    <div class="swiper-wrapper"> 
                         {% for post in news_posts %}
                             <div class="swiper-slide"> 
-                                {# Use your standard resumo-post structure #}
                                 <div class="resumo-post h-100"> 
                                     <a href="{{ url_for('view_post', path=post.path) }}" class="d-flex flex-column h-100" style="text-decoration: none; color: inherit;">
                                         {% if post.meta.image %}
@@ -126,11 +108,10 @@ function adjustContentForNavbar() {
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="swiper-pagination"></div>
+                    <div class="swiper-pagination index-pagination"></div>
                 </div>
 
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <div class="swiper-button-next index-next"></div>
 
             </div>
 

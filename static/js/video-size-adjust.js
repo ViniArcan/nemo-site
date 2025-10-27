@@ -1,43 +1,68 @@
+/**
+ * Aligns the header video (#video-to-resize) based on the header text (#text-to-measure).
+ * 1. Sets the video width to match the text width.
+ * 2. Calculates the vertical position (top) to center the video behind the text,
+ * applying a different adjustment factor on mobile screens.
+ */
 function alignVideoToTextMidpoint() {
+  // Get the DOM elements
   const textElement = document.getElementById('text-to-measure');
   const videoElement = document.getElementById('video-to-resize');
 
+  // Proceed only if both elements exist on the page
   if (textElement && videoElement) {
-    // --- Part 1: Sync the width (remains the same) ---
+    // --- Part 1: Sync the width ---
+    // Get the current rendered width of the text element
     const textWidth = textElement.offsetWidth;
+    // Set the video's width to match the text
     videoElement.style.width = `${textWidth}px`;
+    // Ensure the video scales proportionally by setting height to auto
     videoElement.style.height = 'auto';
 
-    // --- Part 2: Calculate position based on screen size ---
+    // --- Part 2: Calculate vertical position ---
+    // Get the position and dimensions of the text element relative to the viewport
     const textRect = textElement.getBoundingClientRect();
-    const isMobile = window.innerWidth <= 768; // Check if we're on a mobile-sized screen
+    // Define the breakpoint for mobile adjustment (matches Bootstrap's < XL)
+    const mobileBreakpoint = 1200; // Adjusted based on previous comments, check if 1210 was intended
+    const isMobile = window.innerWidth <= mobileBreakpoint; 
     
     let finalTopPosition;
 
-    if (window.innerWidth <= 768) {
+    if (isMobile) {
       // --- MOBILE LOGIC ---
-      // This is the value you will tweak. 0.25 means 25% of the text's height.
-      const mobileCorrectionFactor = 0.4; 
+      // This factor determines how much to shift the video *up* relative to the text height.
+      // 0.4 means shift up by 40% of the text's height.
+      // Adjust this value (e.g., 0.3, 0.5) to fine-tune the mobile vertical alignment.
+      const mobileCorrectionFactor = 0.4; //
 
-      // Calculate the base midpoint using your successful desktop formula
-      const baseMidpointY = textRect.top - (textRect.height / 2) + window.scrollY;
-      
-      // Calculate the offset to nudge the video up
+      // Calculate the Y-coordinate of the text's vertical midpoint relative to the document
+      // (includes scroll offset)
+      const textMidpointY = textRect.top + (textRect.height / 2) + window.scrollY;
+            
+      // Calculate the offset amount based on the text height and factor
       const correctionOffset = textRect.height * mobileCorrectionFactor;
 
-      // Apply the correction to move the video up
-      finalTopPosition = baseMidpointY - correctionOffset;
+      // Apply the correction: subtract the offset to move the video *up*
+      // (Top position is relative to the document, lower value = higher up)
+      finalTopPosition = textMidpointY - correctionOffset;
 
     } else {
-      // --- DESKTOP LOGIC (your existing, working formula) ---
-      finalTopPosition = textRect.top - (textRect.height / 2) + window.scrollY;
+      // --- DESKTOP LOGIC ---
+      // Simply align the video's vertical center with the text's vertical center.
+      // Calculate the Y-coordinate of the text's vertical midpoint relative to the document.
+      const textMidpointY = textRect.top + (textRect.height / 2) + window.scrollY;
+      finalTopPosition = textMidpointY; // No correction needed on desktop
     }
     
     // --- Part 3: Apply the final calculated position ---
+    // Set the 'top' CSS property of the video element.
+    // 'transform: translate(-50%, -50%)' in separador.css handles the actual centering.
     videoElement.style.top = `${finalTopPosition}px`;
   }
 }
 
-// Event listeners remain the same
+// --- Event Listeners ---
+// Run the alignment function once the initial HTML is loaded
 window.addEventListener('DOMContentLoaded', alignVideoToTextMidpoint);
+// Rerun the alignment function whenever the browser window is resized
 window.addEventListener('resize', alignVideoToTextMidpoint);

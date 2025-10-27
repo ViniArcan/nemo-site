@@ -48,13 +48,20 @@
     margin-top: 20px;
 }
 
+/* Use <span> inside <a>, not <p> */
+.social-icons-container a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
 .social-icons-container svg {
     width: 32px;
     height: 32px;
     transition: opacity 0.3s ease;
 }
 
-.social-icons-container svg:hover {
+.social-icons-container a:hover svg {
     opacity: 0.7;
 }
 

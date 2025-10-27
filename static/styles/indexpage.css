@@ -10,11 +10,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Vertically centers content on desktop */
-    min-height: 100vh;
-    margin-top: -1rem;
+    justify-content: center, flex-start; /* Vertically centers content on desktop */
+    min-height: auto;
     padding: 0 0.25rem;
-    transition: padding-top 0.2s ease-in-out;
 }
 
 .logocominfo video {
@@ -109,22 +107,20 @@ body {
 
 
 /* --- 4. LATEST NEWS SECTION --- */
+/* Note: Slider-specific styles (swiper) are in swiper.css */
 .latest-news {
     padding: 20px 10% 40px 10%; 
     background-color: #ffffff;
 }
 
 .latest-news .section-title {
-    /* --- Alignment --- */
-    text-align: left;     /* Aligns text to the left */
-    display: block;       /* Makes the element take full width */
+    text-align: left;
+    display: block;
     margin-bottom: 20px; 
-    
-    /* --- Styling (from .tab-text-content h1) --- */
-    font-size: 3rem;      /* Match the tab title size */
-    font-weight: bold;    /* Ensure it's bold */
-    color: #070f43;     /* Match the tab title color */
-    border-bottom: none;  /* Remove the underline for a cleaner look */
+    font-size: 3rem;
+    font-weight: bold;
+    color: #070f43;
+    border-bottom: none;
 }
 
 .button-container {
@@ -132,9 +128,7 @@ body {
     margin-top: 40px;
 }
 
-.button-container.initially-hidden {
-    display: none;
-}
+/* Removed unused .button-container.initially-hidden rule */
 
 
 /* --- 5. PROBLEM OF THE MONTH SHOWCASE --- */
@@ -158,7 +152,7 @@ body {
     align-self: stretch;
 }
 
-/* This rule was corrected from the old version */
+/* Override default section title for the dark background */
 .problem-content .section-title {
     color: white;
     text-align: left;
@@ -188,8 +182,8 @@ body {
     .tab-text-content {
         text-align: center;
         order: 2;
-        padding-left: 15px; /* Add space on the left */
-        padding-right: 15px; /* Add space on the right */
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .tab-image-container {
         order: 1;

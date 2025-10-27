@@ -56,3 +56,36 @@ span.nemo-icon {
         padding-right: 10%;
     }
 }
+
+/* --- 6. MOBILE-SPECIFIC STYLES --- */
+@media (max-width: 767.98px) { 
+    /* This targets screens smaller than the 'md' breakpoint (where it collapses) */
+
+    /* 1. Adds padding to the main navbar bar (brand + button) on mobile */
+    nav.navbar {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* 2. Centers the links in the collapsed menu */
+    .navbar-collapse .navbar-nav {
+        /* This centers the <li> elements */
+        align-items: center;
+        
+        /* Overrides the 'ms-auto' (margin-left: auto) on the main link list
+           so it doesn't get pushed to the right before centering */
+        margin-left: 0 !important;
+    }
+
+    /* 3. Ensures the text inside each link is also centered */
+    .navbar-collapse .nav-item {
+        text-align: center;
+    }
+
+    .navbar-collapse .nav-link.active {
+        display: inline-block; /* Makes the element shrink-to-fit its content */
+        padding-left: 0.7rem;  /* Adds more horizontal padding */
+        padding-right: 0.7rem; /* Adds more horizontal padding */
+    }
+
+}

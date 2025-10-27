@@ -1,31 +1,8 @@
 {% extends './partials/base_layout.html' %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/generic-pages.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/post-content.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/view-post.css') }}">
-<style>
-    .edit-post-button {
-        position: absolute;
-        top: 20px; /* Adjust as needed */
-        right: 20px; /* Adjust as needed */
-        padding: 8px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 0.9em;
-        z-index: 10; /* Ensure it's above the header image */
-    }
-    .edit-post-button:hover {
-        background-color: #0056b3;
-        color: white;
-    }
-    /* Add position: relative to the container */
-    .post-container {
-        position: relative;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -69,6 +46,7 @@
             </div>
             <hr class="solver-separator">
             {% endif %}
+            
             {{ post_html | safe }}
         </div>
     </div>

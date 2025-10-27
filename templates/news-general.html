@@ -10,7 +10,9 @@
 <script src="{{ url_for('static', filename='js/video-size-adjust.js') }}"></script>
 {% endblock %}
 
-{% block content %}  <div class="div-separadora">
+{% block content %}
+
+<div class="div-separadora">
     <h1 id="text-to-measure"> $\text{Notícias Gerais}$ </h1>
     <video id="video-to-resize" autoplay muted playsinline>
         <source src="{{ url_for('static', filename='videos/titles/news-general.webm') }}" type="video/webm">

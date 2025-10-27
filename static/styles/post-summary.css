@@ -1,10 +1,8 @@
 /* --- 1. MAIN CARD STYLES --- */
 .resumo-post {
-    width: 100%; /* CHANGE THIS back from 300px */
+    width: 100%;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
     border-radius: 0.5rem;
-    /* Remove the fixed margin */
-    /* margin: 4.85px; */ /* DELETE or comment out this line */ 
     padding: 0;
     background-color: white;
     display: flex;
@@ -25,19 +23,17 @@
     position: relative;
     width: 100%;
     border-radius: 7px;
-    border: 4px solid black; /* #4a5568;*/
+    border: 4px solid black;
     margin: 0;
     padding: 0;
 }
 
-/* Creates a square aspect ratio for the image container */
 .post-img-container:after {
     content: "";
     display: block;
-    padding-bottom: 100%;
+    padding-bottom: 100%; /* Creates a square aspect ratio */
 }
 
-/* Makes the image fill the square container */
 .resumo-post img {
     position: absolute;
     top: 0;
@@ -60,7 +56,7 @@
     flex-direction: column;
 }
 
-.resumo-post a {
+.resumo-post a { /* Likely refers to the button link */
     display: block;
     margin-top: auto;
     bottom: 0;
@@ -68,9 +64,10 @@
 
 
 /* --- 4. BUTTON STYLES --- */
+/* Note: This might be unused if buttons are styled by Bootstrap */
 .btn-saiba-mais {
     display: inline-block;
-    margin-top: auto; /* Pushes the button to the bottom of the card */
+    margin-top: auto;
     padding: 8px 16px;
     background-color: #007bff;
     color: white;
@@ -83,26 +80,4 @@
 .btn-saiba-mais:hover {
     background-color: #0056b3;
     color: white;
-}
-
-
-/* --- 5. OLD LAYOUT STYLES (FROM PREVIOUS DESIGNS) --- */
-.post-container {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    box-sizing: content-box;
-}
-
-.post-container .col .resumo-post {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.post-container .col {
-    margin-bottom: 20px;
-}
-
-.post-showcase {
-    margin-left: 10%;
-    margin-right: 10%;
 }

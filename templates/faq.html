@@ -8,22 +8,32 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/shorten-paragraphs-inside-posts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/video-size-adjust.js') }}"></script>
 
 <script>
-    if (window.location.href.indexOf('#') != -1) {
-        let tag = window.location.href.split('#')[1];
-        console.log(tag);
-        if (tag === "encontros-semanais") {
-            let div_encontros = document.getElementById('encontros-semanais');
-            let botao = div_encontros.getElementsByTagName('button')[0];
-            botao.setAttribute('aria-expanded', 'true');
-            botao.classList.remove('collapsed');
-            let div3 = div_encontros.getElementsByClassName('collapse')[0];
-            div3.classList.add('show');
+    // This script checks if the URL has a hash (e.g., #encontros-semanais)
+    // and automatically opens the corresponding accordion item.
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.location.hash) {
+            // .substring(1) removes the '#' from the hash string
+            const tag = window.location.hash.substring(1); 
+            
+            if (tag === "encontros-semanais") {
+                const accordionItem = document.getElementById(tag);
+                if (accordionItem) {
+                    // Use querySelector for stable, specific selection
+                    const button = accordionItem.querySelector('.accordion-button');
+                    const collapseRegion = accordionItem.querySelector('.accordion-collapse');
+
+                    if (button && collapseRegion) {
+                        button.setAttribute('aria-expanded', 'true');
+                        button.classList.remove('collapsed');
+                        collapseRegion.classList.add('show');
+                    }
+                }
+            }
         }
-    }
+    });
 </script>
 {% endblock %}
 

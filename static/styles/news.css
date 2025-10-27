@@ -1,4 +1,4 @@
-/* --- General Section Styles --- */
+/* --- 1. General Section Styles --- */
 .news-section {
     text-align: center;
     margin-top: 60px;
@@ -10,55 +10,25 @@
     font-weight: bold;
     margin-bottom: 30px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #a6fff8;
+    border-bottom: 2px solid #a6fff8; /* Note: This color is different from other pages */
     color: #070f43;
 }
 
-/* --- Post Grid Layout --- */
-.post-showcase {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    justify-items: center; /* <-- ADD THIS LINE */
-}
-
-/* --- Specific Section Styles --- */
+/* --- 2. Specific Section Styles --- */
 .awards-section {
     background-color: #f0f9f9;
     padding: 40px;
     border-radius: 10px;
 }
 
-/* --- Button and Hidden Post Styles --- */
-.hidden-post, .initially-hidden, .js-hidden-post, .show-less-btn.initially-hidden, .button-container.initially-hidden {
-    display: none;
-}
-
+/* --- 3. Button Container --- */
+/* Removed unused rules for hidden posts */
 .button-container {
     text-align: center; 
     margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-    .central-content {
-        /* Reduce the large 10% margins to a smaller, fixed value */
-        margin-left: 15px;
-        margin-right: 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .news-section {
-        /* Reduce the horizontal padding */
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-
-/* 6. News List Layout (Inspired by months-problems.css) */
+/* --- 4. News List Layout (for news-general.html & news-awards.html) --- */
 .news-list-container {
     max-width: 1200px;
     margin-left: auto;
@@ -79,14 +49,13 @@
 }
 
 .news-list-item:hover {
-    background-color: #f8f9fa; /* Subtle hover effect */
+    background-color: #f8f9fa;
 }
 
-/* Image Column */
 .news-item-img {
-    width: 200px; /* Fixed width for the image */
-    height: 150px; /* A 4:3 aspect ratio is good for news */
-    flex-shrink: 0; /* Prevents image from shrinking */
+    width: 200px;
+    height: 150px;
+    flex-shrink: 0;
 }
 
 .news-item-img img {
@@ -96,15 +65,14 @@
     border-radius: 5px;
 }
 
-/* Info Column (Title + Desc) */
 .news-item-info {
-    flex-grow: 1; /* Takes up the remaining space */
+    flex-grow: 1;
 }
 
 .news-item-info h4 {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #070f43; /* Matches your section title color */
+    color: #070f43;
     margin: 0 0 10px 0;
 }
 
@@ -114,28 +82,39 @@
     color: #343a40;
 }
 
-/* Metadata Column (Date) */
 .news-item-meta {
     flex-shrink: 0;
     text-align: right;
-    width: 120px; /* Gives the date its own space */
+    width: 120px;
     font-weight: 500;
     color: #6c757d;
-    padding-top: 5px; /* Aligns it nicely with the title */
+    padding-top: 5px;
 }
 
-/* --- Responsive Adjustments for Mobile --- */
+/* --- 5. Responsive Adjustments --- */
 @media (max-width: 768px) {
+    /* Merged rules from duplicate blocks */
+    .central-content {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    
+    .news-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* List layout adjustments */
     .news-list-item {
-        flex-direction: column; /* Stack vertically on mobile */
-        align-items: center;    /* Center all content */
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         gap: 15px;
     }
 
     .news-item-img {
         width: 100%;
-        max-width: 350px; /* Allow image to be large */
+        max-width: 350px;
         height: auto;
     }
 
