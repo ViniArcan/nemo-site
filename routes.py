@@ -20,7 +20,7 @@ def register_routes(app):
     def index():
         published_pages = [p for p in pages if p.meta.get('status') == 'published']
         sorted_pages = sorted(published_pages, key=lambda p: p.meta.get('date', datetime.now()), reverse=True)
-        news_posts = [p for p in sorted_pages if p.path.startswith('news/')]
+        news_posts = [p for p in sorted_pages if p.path.startswith('news/')][:6]
         problem_post = next((p for p in sorted_pages if p.path.startswith('months-problems/') and not p.meta.get('is_solved')), None)
         return render_template('index.html', logado=current_user.is_authenticated, news_posts=news_posts, problem_post=problem_post)
 

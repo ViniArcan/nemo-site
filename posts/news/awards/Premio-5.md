@@ -1,5 +1,5 @@
 title: "Premiação 5"
-date: 2016-10-04
+date: 2026-10-04
 desc: "A brief, one-sentence description of the news article."
 author_email: "author@example.com"
 image: "uploads/clippy.webp"

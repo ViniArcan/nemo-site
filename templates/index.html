@@ -3,11 +3,14 @@
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/indexpage.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post-summary.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swiper.css') }}">
 {% endblock %}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/shorten-paragraphs-inside-posts.js') }}"></script>
-<script src="{{ url_for('static', filename='js/responsive-grid.js') }}"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 <script>
 function adjustContentForNavbar() {
@@ -98,30 +101,43 @@ function adjustContentForNavbar() {
 
     <div class="noticias">
         <section class="latest-news">
-            <h2 class="section-title">Notícias e Premiações</h2>
-            <div class="post-showcase">
-                {% for post in news_posts %}
-                    <div class="news-post-item"> 
-                        <div class="resumo-post">
-                            <a href="{{ url_for('view_post', path=post.path) }}" style="text-decoration: none; color: inherit;">
-                                {% if post.meta.image %}
-                                <div class="post-img-container">
-                                    <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
-                                </div>
-                                {% endif %}
-                                <div class="post-resumo-texto">
-                                    <h4>{{ post.meta.title }}</h4>
-                                    <p>{{ post.meta.desc }}</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+            <h2 class="section-title">Últimas Notícias</h2>
             
-            <div class="button-container initially-hidden">
+            <div class="swiper-wrapper">
+
+                <div class="slide-container swiper">
+                    <div class="card-wrapper swiper-wrapper"> 
+                        {% for post in news_posts %}
+                            <div class="swiper-slide"> 
+                                {# Use your standard resumo-post structure #}
+                                <div class="resumo-post h-100"> 
+                                    <a href="{{ url_for('view_post', path=post.path) }}" class="d-flex flex-column h-100" style="text-decoration: none; color: inherit;">
+                                        {% if post.meta.image %}
+                                        <div class="post-img-container">
+                                            <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
+                                        </div>
+                                        {% endif %}
+                                        <div class="post-resumo-texto">
+                                            <h4>{{ post.meta.title }}</h4>
+                                            <p>{{ post.meta.desc }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
+
+            <div class="button-container view-all-container">
                 <a href="/news" class="btn btn-outline-primary btn-lg show-more-btn">Ver Todas as Publicações</a>
             </div>
+
         </section>
     </div>
 

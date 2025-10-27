@@ -1,0 +1,73 @@
+/* static/styles/swiper.css */
+
+/* --- 1. Main Swiper Container --- */
+
+.slider-wrapper {
+    position: relative; /* Make this the positioning anchor */
+    /* Add padding to make space for buttons IF needed,
+       adjust based on button size and desired gap */
+    padding: 0 40px; 
+    max-width: 1220px; /* Wider than slide-container to fit buttons */
+    margin: 0 auto;    /* Center the whole thing */
+}
+
+.slide-container {
+    max-width: 1120px;
+    width: 100%;
+    padding: 43px 23px; /* Base padding */
+    position: relative; /* Anchor for buttons/pagination */
+    margin: 0 auto; /* Center the container */
+}
+
+/* --- 2. Swiper Navigation Buttons --- */
+ .swiper-wrapper .swiper-button-prev,
+ .swiper-wrapper .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    
+    /* Styling */
+    color: #070f43; 
+    transition: color 0.3s ease;
+    --swiper-navigation-size: 40px; 
+}
+
+ .swiper-wrapper .swiper-button-prev:hover,
+ .swiper-wrapper .swiper-button-next:hover {
+    color: #4070F4; 
+}
+
+/* Positioning */
+ .swiper-wrapper .swiper-button-prev {
+     left: -25px; /* Position INSIDE left padding */
+}
+ .swiper-wrapper .swiper-button-next {
+     right: -25px; /* Position INSIDE right padding */
+}
+
+/* --- 3. Swiper Pagination Dots --- */
+.swiper-pagination {
+    position: relative; 
+    bottom: auto;       
+    margin-top: 25px;   
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+    background-color: #6E93f7; 
+    opacity: 0.7;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #070f43; 
+    opacity: 1;
+}
+
+/* --- 4. Responsive Adjustments --- */
+@media screen and (max-width: 1500px) {
+
+    .slide-container {
+        padding: 60px 20px; /* Less padding on mobile */
+    }
+}

@@ -50,7 +50,7 @@ body {
 /* --- 3. TABBED INTERFACE SECTION --- */
 .tab-container {
     padding: 50px 10%;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
 }
 
 .nav-tabs {
@@ -125,16 +125,6 @@ body {
     font-weight: bold;    /* Ensure it's bold */
     color: #070f43;     /* Match the tab title color */
     border-bottom: none;  /* Remove the underline for a cleaner look */
-}
-
-.post-showcase {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-items: center;
-    align-items: start;
 }
 
 .button-container {
@@ -236,7 +226,7 @@ body {
 
     /* News */
     .latest-news {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
     }
 }

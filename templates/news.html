@@ -5,11 +5,14 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post-summary.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/generic-pages.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/news.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swiper.css') }}">
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/responsive-grid.js') }}"></script>
 <script src="{{ url_for('static', filename='js/video-size-adjust.js') }}"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/news-slider.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,29 +32,35 @@
     {% if award_posts %}
     <div class="news-section awards-section">
         <h2 class="section-title">Prêmios e Conquistas</h2>
-        <div class="post-showcase">
-            {% for post in award_posts %}
-                <div class="news-post-item">
-                    <div class="resumo-post">
-                        <a href="{{ url_for('view_post', path=post.path) }}" style="text-decoration: none; color: inherit;">
-                            {% if post.meta.image %}
-                            <div class="post-img-container">
-                                <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
-                            </div>
-                            {% endif %}
-                            <div class="post-resumo-texto">
-                                <h4>{{ post.meta.title }}</h4>
-                                <p>{{ post.meta.desc }}</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
         
-        <div class="button-container initially-hidden">
-            <button class="btn btn-outline-primary show-more-btn">Mostrar mais</button>
-            <button class="btn btn-outline-secondary show-less-btn initially-hidden">Mostrar menos</button>
+        {# Corrected structure matching Other News and news-slider.js #}
+        <div class="slider-wrapper"> 
+            <div class="swiper-button-prev awards-prev"></div> {# Use unique class #}
+
+            <div id="awardsSwiper" class="slide-container swiper"> {# Use unique ID #}
+                <div class="swiper-wrapper">
+                    {% for post in award_posts %} 
+                        <div class="swiper-slide"> 
+                            <div class="resumo-post h-100"> 
+                                <a href="{{ url_for('view_post', path=post.path) }}" class="d-flex flex-column h-100" style="text-decoration: none; color: inherit;">
+                                    {% if post.meta.image %}
+                                    <div class="post-img-container">
+                                        <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
+                                    </div>
+                                    {% endif %}
+                                    <div class="post-resumo-texto">
+                                        <h4>{{ post.meta.title }}</h4>
+                                        <p>{{ post.meta.desc }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination awards-pagination"></div> {# Use unique class #}
+            </div>
+
+            <div class="swiper-button-next awards-next"></div> {# Use unique class #}
         </div>
     </div>
     {% endif %}
@@ -59,30 +68,43 @@
     {% if other_news_posts %}
     <div class="news-section">
         <h2 class="section-title">Notícias Gerais</h2>
-        <div class="post-showcase">
-            {% for post in other_news_posts %}
-                <div class="news-post-item">
-                    <div class="resumo-post">
-                        <a href="{{ url_for('view_post', path=post.path) }}" style="text-decoration: none; color: inherit;">
-                            {% if post.meta.image %}
-                            <div class="post-img-container">
-                                <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
-                            </div>
-                            {% endif %}
-                            <div class="post-resumo-texto">
-                                <h4>{{ post.meta.title }}</h4>
-                                <p>{{ post.meta.desc }}</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
 
-        <div class="button-container initially-hidden">
-            <button class="btn btn-outline-primary show-more-btn">Mostrar mais</button>
-            <button class="btn btn-outline-secondary show-less-btn initially-hidden">Mostrar menos</button>
+        {# --- START: Swiper Structure for Other News --- #}
+        <div class="slider-wrapper"> {# Outer wrapper #}
+            {# Use the unique class for the button #}
+            <div class="swiper-button-prev other-prev"></div> 
+
+            {# Use the unique ID for the container #}
+            <div id="otherNewsSwiper" class="slide-container swiper"> 
+                <div class="swiper-wrapper">
+                    {# CORRECT LOOP VARIABLE #}
+                    {% for post in other_news_posts %} 
+                        <div class="swiper-slide">
+                           <div class="resumo-post h-100">
+                                <a href="{{ url_for('view_post', path=post.path) }}" class="d-flex flex-column h-100" style="text-decoration: none; color: inherit;">
+                                    {% if post.meta.image %}
+                                    <div class="post-img-container">
+                                        <img src="{{ url_for('static', filename=post.meta.image) }}" alt="Post Image">
+                                    </div>
+                                    {% endif %}
+                                    <div class="post-resumo-texto">
+                                        <h4>{{ post.meta.title }}</h4>
+                                        <p>{{ post.meta.desc }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {# Use the unique class for pagination #}
+                <div class="swiper-pagination other-pagination"></div> 
+            </div>
+            
+            {# Use the unique class for the button #}
+            <div class="swiper-button-next other-next"></div> 
         </div>
+        {# --- END: Swiper Structure for Other News --- #}
+
     </div>
     {% endif %}
 

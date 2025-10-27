@@ -1,9 +1,10 @@
 /* --- 1. MAIN CARD STYLES --- */
 .resumo-post {
-    width: 300px;
+    width: 100%; /* CHANGE THIS back from 300px */
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
     border-radius: 0.5rem;
-    margin: 4.85px;
+    /* Remove the fixed margin */
+    /* margin: 4.85px; */ /* DELETE or comment out this line */ 
     padding: 0;
     background-color: white;
     display: flex;

@@ -10,7 +10,7 @@
     font-weight: bold;
     margin-bottom: 30px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #a6e1ff;
+    border-bottom: 2px solid #a6fff8;
     color: #070f43;
 }
 
@@ -27,7 +27,7 @@
 
 /* --- Specific Section Styles --- */
 .awards-section {
-    background-color: #fffaef;
+    background-color: #f0f9f9;
     padding: 40px;
     border-radius: 10px;
 }

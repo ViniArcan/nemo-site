@@ -17,7 +17,6 @@ class Fishcurve(VMobject):
             [
                 w * cos(k * t) - h * (sin(k * t))**2,
                 w * cos(k * t) * sin(k * t),
-                
                 0
             ] for t in theta
         ]
@@ -27,6 +26,9 @@ class Fishcurve(VMobject):
 class NEMO_Animation(Scene):
 
     def construct(self):
+        
+        #self.play(self.camera.frame.animate.shift(DOWN * 2), run_time=1)
+
         # Turning Background Transparent
         #self.camera.background_opacity = 0
 
@@ -34,18 +36,24 @@ class NEMO_Animation(Scene):
         self.camera.background_color = "#fdf6f1" 
 
         #Parameters
-        w = 3*sqrt(2); h = 3
+        f = 1.3
+        w = 3*sqrt(2)*f; h = 3*f
         p = ValueTracker(0.001)
         x = ValueTracker(0)
+        s = 0;
 
         #Ellipse elements
         ellipse = (
             Ellipse(width=w*2, height=h*2, color=BLUE, fill_opacity=0)
-            .set_stroke(width=8, opacity=0.6)
+            .set_stroke(width=8, opacity=1)
         )
         focus = (
             Dot([3,0,0], color=GREEN)
-            .set_stroke(width=12, opacity=0.4)
+            .set_stroke(width=2, opacity=1)
+        )
+        focus_out = (
+            Dot([3,0,0], color='#cbdfbb' )
+            .set_stroke(width=12, opacity=1)
         )
         moving_ellipse_point = always_redraw(
                 lambda: Dot(
@@ -55,7 +63,19 @@ class NEMO_Animation(Scene):
                         0
                     ],
                     color=GREEN
-                ).set_stroke(width=12, opacity=0.4)
+                ).set_stroke(width=2, opacity=1)
+                .shift(UP*s)
+        )
+        moving_ellipse_point_out = always_redraw(
+                lambda: Dot(
+                    [
+                        w*cos(TAU * (p.get_value())),
+                        h*sin(TAU * (p.get_value())),
+                        0
+                    ],
+                    color='#cbdfbb'
+                ).set_stroke(width=12, opacity=1)
+                .shift(UP*s)
         )
         moving_line = always_redraw(
             lambda: Line(
@@ -66,7 +86,8 @@ class NEMO_Animation(Scene):
                         0
                     ],
                     color=BLUE,
-                ).set_stroke(width=6, opacity=0.6)
+                ).set_stroke(width=6, opacity=1)
+                .shift(UP*s)
         )
 
         #Fish elements
@@ -77,7 +98,7 @@ class NEMO_Animation(Scene):
                 1,
                 TAU * (p.get_value())
             ).set_stroke(color=ORANGE, width=10, opacity=1)
-             .shift(UP * (2) * (x.get_value()))
+             .shift(UP * (s + (2) * (x.get_value())))
         )
         moving_fish_point = always_redraw(
             lambda: Dot(
@@ -87,18 +108,19 @@ class NEMO_Animation(Scene):
                         0
                     ],
                     color=GREEN,
-                ).set_stroke(width=12, opacity=0.4)
+                ).set_stroke(width=2, opacity=1)
+                .shift(UP*s)
         )
-
-        moving_fish_point_DELAYED = always_redraw(
+        moving_fish_point_out = always_redraw(
             lambda: Dot(
                     [
-                        w * cos(TAU * (p.get_value()*0.01)) - h * (sin(TAU * (p.get_value()*0.01)))**2,
-                        w * cos(TAU * (p.get_value()*0.01)) * sin(TAU * (p.get_value()*0.01)),
+                        w * cos(TAU * (p.get_value() + 0.001)) - h * (sin(TAU * (p.get_value() + 0.001)))**2,
+                        w * cos(TAU * (p.get_value() + 0.001)) * sin(TAU * (p.get_value() + 0.001)),
                         0
                     ],
-                    color=GREEN,
-                ).set_stroke(width=12, opacity=0.4)
+                    color='#cbdfbb',
+                ).set_stroke(width=12, opacity=1)
+                .shift(UP*s)
         )
 
         moving_slope = always_redraw(
@@ -106,15 +128,17 @@ class NEMO_Animation(Scene):
                 start = moving_fish_point.get_center() - (moving_fish_point.get_center() - moving_ellipse_point.get_center()) *(100/linalg.norm(moving_fish_point.get_center() - moving_ellipse_point.get_center())),
                 end = moving_ellipse_point.get_center() + (moving_fish_point.get_center() - moving_ellipse_point.get_center()) *(100/linalg.norm(moving_fish_point.get_center() - moving_ellipse_point.get_center())),
                 color=BLUE
-            ).set_stroke(width=6, opacity=0.6) if fish.has_points() else VMobject()
+            ).set_stroke(width=6, opacity=1) if fish.has_points() else VMobject()
+            .shift(UP*s)
         )
-        
+
+        elements = VGroup(ellipse, focus, focus_out).shift(UP*s)
+
         #NEMO Text
         Nemo_text = (
-            MathTex(r"\mathbb{NEMO}", font_size=200, color=BLACK)
+            MathTex(r"\mathbb{NEMO}", font_size=280, color=BLACK)
             .set_stroke(color=BLACK, width=0.5, opacity=1)
-            .shift(DOWN*2)
-            
+            .shift(DOWN*2.9 + UP*s) 
         )
 
         #Animating the Ellipse
@@ -122,12 +146,12 @@ class NEMO_Animation(Scene):
         self.play(FadeIn(focus, moving_line, moving_ellipse_point, moving_slope), run_time=0.25)
 
         #Animating the Fish
-        self.add(fish, focus, moving_line, moving_ellipse_point, moving_slope, moving_fish_point)
-        self.play(p.animate.set_value(1), run_time=3)
+        self.add(fish, focus_out, focus, moving_line, moving_ellipse_point_out, moving_ellipse_point, moving_slope, moving_fish_point_out, moving_fish_point)
+        self.play(p.animate.set_value(1), run_time=2)
 
         # Getting the fish to the top and Animating the Text
-        self.play(FadeOut(ellipse, moving_ellipse_point, moving_line, moving_slope, moving_fish_point, focus), run_time=0.25)
-        self.play(x.animate.set_value(0.6), run_time=1, rate_func=smooth)
+        self.play(FadeOut(ellipse, moving_ellipse_point_out, moving_ellipse_point_out, moving_ellipse_point, moving_line, moving_slope, moving_fish_point_out, moving_fish_point, focus_out, focus), run_time=0.25)
+        self.play(x.animate.set_value(0.6), run_time=0.75, rate_func=smooth)
         self.play(Write(Nemo_text), run_time=1)
 
         self.wait(2)
