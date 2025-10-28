@@ -32,7 +32,7 @@
             <p>Como amantes da matemática, gostamos fazer e ouvir explicações de conceitos e problemas matemáticos e, por isso, todos são bem-vindos a participar das nossas aulas e trocar experiências e aprendizados conosco!</p>
         </div>
         <div class="about-image-container">
-            <img src="{{ url_for('static', filename='imgs/index-imgs/imc_jornalusp_grupo_nemo_matematica_icmc_usp.webp') }}" alt="Foto do grupo NEMO">
+            <img src="{{ url_for('static', filename='imgs/index-imgs/about-us.webp') }}" alt="Foto do grupo NEMO">
         </div>
     </section>
 
@@ -142,13 +142,18 @@
                     </h2>
                     <div id="collapseSolution" class="accordion-collapse collapse" data-bs-parent="#solutionAccordion">
                         <div class="accordion-body">
-                            <p>Se você não tentou, tente!!!</p>
+                            
+                            <h2>Se você não tentou, tente!!!</h2>
 
                             <div class="accordion" id="realSolutionAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingRealSolution">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRealSolution">
-                                            Clique se realmente tentou!
+
+                                            <h1 class="fst-italic"> Clique se realmente tentou!</h1>
+
+                                            <img src="{{ url_for('static', filename='imgs/about-imgs/mr-fresh.png') }}" class="img-fluid rounded" style="width: 130px;">
+                                            
                                         </button>
                                     </h2>
                                     <div id="collapseRealSolution" class="accordion-collapse collapse" data-bs-parent="#realSolutionAccordion">
