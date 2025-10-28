@@ -59,7 +59,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     flask db upgrade  # Aplica a migração para criar o banco de dados e tabelas
     ```
 
-    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance`, e `migrations` e repita a partir do passo 3.)
+    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance` e `migrations` (Pode ser que `instance` e `migrations` não existam) e repita a partir do passo 3.)
 
 6.  **Construa a imagem Docker:**
     ```bash
