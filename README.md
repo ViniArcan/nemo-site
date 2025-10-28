@@ -101,8 +101,6 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     python -m venv venv
     source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
     ```
-
-    (OBS: Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
     
 3.  **Instale as dependências:**
     ```bash
@@ -115,6 +113,8 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     SECRET_KEY='sua_chave_super_secreta_aqui'
     DATABASE_URL='sqlite:///posts.db'
     ```
+
+    (OBS: Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
 
 5.  **Inicialize o Banco de Dados (Primeira vez):**
     Execute os seguintes comandos na ordem correta para criar o arquivo do banco de dados (por padrão `posts.db`) e configurar as tabelas:
