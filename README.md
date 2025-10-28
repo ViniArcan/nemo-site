@@ -72,18 +72,15 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     git clone <url-do-repositorio>
     cd <diretorio-do-repositorio>
     ```
-
 2.  **Crie um ambiente virtual:**
     ```bash
     python -m venv venv
     source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
     ```
-
 3.  **Instale as dependências:**
     ```bash
-    pip install -r requirements.txt
+    venv/bin/pip install -r requirements.txt
     ```
-
 4.  **Crie um arquivo de ambiente:**
     Crie um arquivo chamado `.env` na raiz do projeto e adicione o seguinte conteúdo. **Certifique-se de alterar a `SECRET_KEY` para uma string nova e aleatória.**
     ```
@@ -91,17 +88,21 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     DATABASE_URL='sqlite:///posts.db'
     ```
 
-5.  **Execute a aplicação:**
+5.  **Inicialize o Banco de Dados (Primeira vez):**
+    Execute os seguintes comandos na ordem correta para criar o arquivo do banco de dados (por padrão `posts.db`) e configurar as tabelas:
+    ```
+    flask db init     # Cria a pasta 'migrations' (apenas na primeira vez)
+    flask db migrate -m "Initial database schema"  # Cria o script de migração inicial
+    flask db upgrade  # Aplica a migração para criar o banco de dados e tabelas
+    ```
+6.  **Execute a aplicação:**
     ```bash
     venv/bin/python app.py
     ```
-
 6.  A aplicação estará disponível em [http://localhost:5000](http://localhost:5000).
 
 ## Criando um Usuário
-
 Para criar um novo usuário com permissões de gerenciamento de conteúdo, você pode usar o script `create_user.py`. Execute o seguinte comando e siga as instruções:
-
 ```bash
 venv/bin/python create_user.py
 ```
