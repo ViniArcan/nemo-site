@@ -59,9 +59,10 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     flask db upgrade  # Aplica a migração para criar o banco de dados e tabelas
     ```
 
-    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance` e `migrations` (Pode ser que `instance` e `migrations` não existam) e repita a partir do passo 3.)
+    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance` e `migrations` e repita a partir do passo 3.)
+    ps.: Pode ser que `instance` e `migrations` não existam
 
-6.  **Construa a imagem Docker:**
+7.  **Construa a imagem Docker:**
     ```bash
     sudo docker build -t nemo-app .
     ```
@@ -73,7 +74,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     ```
     Disso, tente rodar novamente o comandor anterior a esse.
     
-7.  **Execute o contêiner Docker:**
+8.  **Execute o contêiner Docker:**
     Para garantir que seus posts, uploads e o banco de dados sejam salvos permanentemente, execute o contêiner com volumes, que conectam pastas do seu computador ao contêiner:
     ```bash
     sudo docker run -p 8000:8000 \
