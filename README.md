@@ -60,6 +60,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     ```
 
     (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance` e `migrations` e repita a partir do passo 3.)
+
     ps.: Pode ser que `instance` e `migrations` não existam
 
 7.  **Construa a imagem Docker:**
@@ -119,6 +120,8 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     ```
 
     (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance`, e `migrations` e repita a partir do passo 2.)
+
+    ps.: Pode ser que `instance` e `migrations` não existam
     
 6.  **Execute a aplicação:**
     ```bash
