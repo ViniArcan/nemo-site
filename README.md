@@ -95,15 +95,20 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     git clone <url-do-repositorio>
     cd <diretorio-do-repositorio>
     ```
+    
 2.  **Crie um ambiente virtual:**
     ```bash
     python -m venv venv
     source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
     ```
+
+    (OBS: Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
+    
 3.  **Instale as dependências:**
     ```bash
     venv/bin/pip install -r requirements.txt
     ```
+    
 4.  **Crie um arquivo de ambiente:**
     Crie um arquivo chamado `.env` na raiz do projeto e adicione o seguinte conteúdo. **Certifique-se de alterar a `SECRET_KEY` para uma string nova e aleatória.**
     ```
