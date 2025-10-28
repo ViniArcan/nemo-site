@@ -34,13 +34,34 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
 2.  **Crie um arquivo de ambiente:**
     Crie um arquivo chamado `.env` na raiz do projeto e adicione o seguinte conteúdo. **Certifique-se de alterar a `SECRET_KEY` para uma string nova e aleatória.**
     
-    (Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
     ```
     SECRET_KEY='sua_chave_super_secreta_aqui'
     DATABASE_URL='sqlite:///posts.db'
     ```
 
-4.  **Construa a imagem Docker:**
+    (OBS: Se não funcionar inicialmente, tente remover a linha do `DATABASE_URL` e tente prosseguir)
+
+3.  **Crie um ambiente virtual:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
+    ```
+4.  **Instale as dependências:**
+    ```bash
+    venv/bin/pip install -r requirements.txt
+    ```
+
+5.  **Inicialize o Banco de Dados (Primeira vez):**
+    Execute os seguintes comandos na ordem correta para criar o arquivo do banco de dados (por padrão `posts.db`) e configurar as tabelas:
+    ```
+    flask db init     # Cria a pasta 'migrations' (apenas na primeira vez)
+    flask db migrate -m "Initial database schema"  # Cria o script de migração inicial
+    flask db upgrade  # Aplica a migração para criar o banco de dados e tabelas
+    ```
+
+    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance`, e `migrations` e repita a partir do passo 3.)
+
+6.  **Construa a imagem Docker:**
     ```bash
     sudo docker build -t nemo-app .
     ```
@@ -52,7 +73,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     ```
     Disso, tente rodar novamente o comandor anterior a esse.
     
-5.  **Execute o contêiner Docker:**
+7.  **Execute o contêiner Docker:**
     Para garantir que seus posts, uploads e o banco de dados sejam salvos permanentemente, execute o contêiner com volumes, que conectam pastas do seu computador ao contêiner:
     ```bash
     sudo docker run -p 8000:8000 \
@@ -95,6 +116,9 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
     flask db migrate -m "Initial database schema"  # Cria o script de migração inicial
     flask db upgrade  # Aplica a migração para criar o banco de dados e tabelas
     ```
+
+    (OBS: Caso essa parte esteja falhando, tente excluir as pastas: `venv`, `instance`, e `migrations` e repita a partir do passo 2.)
+    
 6.  **Execute a aplicação:**
     ```bash
     venv/bin/python app.py
