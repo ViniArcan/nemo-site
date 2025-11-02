@@ -63,6 +63,11 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
 
     ps.: Pode ser que `instance` e `migrations` não existam
 
+6. **Saia do ambiente virtual:**
+   ```bash
+    deactivate
+    ```
+
 7.  **Construa a imagem Docker:**
     ```bash
     sudo docker build -t nemo-app .
@@ -86,7 +91,7 @@ Você pode executar este projeto localmente para desenvolvimento ou testes. Exis
       nemo-app
     ```
 
-6.  A aplicação estará disponível em [http://localhost:8000](http://localhost:8000).
+9.  A aplicação estará disponível em [http://localhost:8000](http://localhost:8000).
 
 ### Opção 2: Configuração Local
 
