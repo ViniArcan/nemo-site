@@ -17,6 +17,9 @@
             <h1 class="post-title">{{ post.meta.title }}</h1>
 
             <div class="post-meta">
+
+                <p class="post-desc"> {{ post.meta.desc }} </p>
+
                 {% if post.path.startswith('news/') %}
                     <span class="meta-date">Publicado em {{ post.meta.date.strftime('%d/%m/%Y') }}</span>
                     {% if author %}
@@ -48,6 +51,17 @@
             {% endif %}
             
             {{ post_html | safe }}
+
+            {% if post.path.startswith('months-problems/') and not post.meta.is_solved %}
+            <hr class="solver-separator">
+            <div class="submit-solution-container">
+                <h3>Tem uma solução?</h3>
+                <p>Envie sua resolução para concorrer a um giz hagoromo!</p>
+                <a href="{{ post.meta.link_forms }}" class="btn btn-success btn-lg" target="_blank" rel="noopener noreferrer">
+                    Enviar Solução
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
 
