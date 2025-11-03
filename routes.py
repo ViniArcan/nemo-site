@@ -201,7 +201,7 @@ def register_routes(app):
         # Define allowed attributes for specific tags
         allowed_attrs = {
             **bleach.sanitizer.ALLOWED_ATTRIBUTES, # Include default allowed attributes
-            'img': ['src', 'alt', 'title'],
+            'img': ['src', 'alt', 'title', 'width', 'height'],
             'a': ['href', 'title', 'class'] 
         }
         # Sanitize the HTML rendered from Markdown to prevent XSS attacks
