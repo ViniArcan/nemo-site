@@ -22,11 +22,18 @@
     padding: 20px;
     border-radius: 5px;
     display: inline-block;
+    max-width: 800px;
 }
 
 .post-title {
     font-size: 3rem;
     font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.post-desc {
+    font-size: 1rem;
     margin: 0;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 }
@@ -99,7 +106,6 @@
 }
 
 /* --- 7. Edit Post Button --- */
-/* MOVED styles from inline block */
 .edit-post-button {
     position: absolute;
     top: 20px;
@@ -115,4 +121,30 @@
 .edit-post-button:hover {
     background-color: #0056b3;
     color: white;
+}
+
+/* --- 8. Submit Solution Button --- */
+.submit-solution-container {
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    margin-top: 40px;
+    border: 1px solid #eee;
+}
+
+.submit-solution-container h3 {
+    font-weight: bold;
+    color: #070f43;
+}
+
+.submit-solution-container p {
+    font-size: 1.1em;
+    color: #495057;
+    margin-bottom: 20px;
+}
+
+.submit-solution-container .btn-success {
+    font-weight: bold;
+    padding: 12px 25px;
 }
