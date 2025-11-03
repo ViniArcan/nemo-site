@@ -51,6 +51,7 @@
     margin: 0;
     font-size: 0.9em;
     color: #6c757d;
+    white-space: pre-wrap;
 }
 
 .problem-item-solver {
@@ -156,4 +157,5 @@
     .solver-name {
         margin-right: 0;
     }
+
 }
