@@ -9,6 +9,7 @@ post_type: Month-Problem
 status: draft # draft ou published
 
 # --- Problem Specific Fields ---
+link_forms: "YOUR_GOOGLE_FORM_LINK_HERE"
 is_solved: false
 solver_name: ""
 solver_image: "uploads/solver-picture.jpg"
