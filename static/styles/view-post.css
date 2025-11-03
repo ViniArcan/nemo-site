@@ -36,6 +36,8 @@
     font-size: 1rem;
     margin: 0;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    margin-top: 15px;
+    white-space: normal;
 }
 
 /* --- 3. Metadata Styling --- */
@@ -148,3 +150,4 @@
     font-weight: bold;
     padding: 12px 25px;
 }
+
