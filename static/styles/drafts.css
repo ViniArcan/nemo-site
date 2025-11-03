@@ -14,13 +14,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px; /* <-- ADDED gap for spacing */
+    gap: 20px; 
     
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-radius: 8px;
     margin-bottom: 15px;
-    padding: 20px; /* <-- ADDED padding (moved from draft-link) */
+    padding: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease;
 }
@@ -29,9 +29,8 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* --- ADDED THIS NEW BLOCK (copied from news.css) --- */
 .draft-item-img {
-    width: 150px; /* Slightly smaller than news page */
+    width: 150px;
     height: 100px;
     flex-shrink: 0;
 }
@@ -42,11 +41,10 @@
     object-fit: cover;
     border-radius: 5px;
 }
-/* --- END OF NEW BLOCK --- */
 
 .draft-link {
     flex-grow: 1;
-    padding: 0; /* <-- REMOVED padding (moved to parent) */
+    padding: 0; 
     text-decoration: none;
     color: #212529;
 }
@@ -62,6 +60,7 @@
     margin: 0;
     font-size: 0.95em;
     color: #6c757d;
+    white-space: pre-wrap;
 }
 
 .delete-button {
@@ -69,12 +68,12 @@
     color: white;
     border: none;
     padding: 8px 15px;
-    margin-right: 0; /* <-- REMOVED margin (parent padding handles it) */
+    margin-right: 0; 
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    flex-shrink: 0; /* <-- ADDED to prevent shrinking */
+    flex-shrink: 0; 
 }
 
 .delete-button:hover {
@@ -84,8 +83,8 @@
 /* --- 3. Responsive Adjustments --- */
 @media (max-width: 768px) {
     .draft-item {
-        flex-direction: column; /* Stack vertically on mobile */
-        align-items: center;    /* Center all content */
+        flex-direction: column; 
+        align-items: center;  
         text-align: center;
         gap: 15px;
     }
@@ -97,7 +96,8 @@
     }
 
     .delete-button {
-        width: 100%; /* Make delete button full-width */
+        width: 100%; 
         margin-top: 10px;
     }
+
 }
