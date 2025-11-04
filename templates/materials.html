@@ -27,58 +27,46 @@
 <div class="central-content">
     <div class="materials-section">
         <h2 class="section-title">Listas e Materiais dos Encontros</h2>
-        
+
+        {% if logado %}
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{{ url_for('manage_materials') }}" class="btn btn-primary">
+                Gerenciar Materiais
+            </a>
+        </div>
+        {% endif %}
+
         <div class="accordion" id="materialsAccordion">
 
+            {% for item in materials %}
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Métodos de demonstração
+                <h2 class="accordion-header" id="heading-{{ item.id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapse-{{ item.id }}" aria-expanded="false" aria-controls="collapse-{{ item.id }}">
+                        {{ item.title }}
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#materialsAccordion">
+                <div id="collapse-{{ item.id }}" class="accordion-collapse collapse" 
+                     aria-labelledby="heading-{{ item.id }}" data-bs-parent="#materialsAccordion">
                     <div class="accordion-body">
-                        <p>Todas as questões de olimpíadas (exceto a Elon Lages, que é de múltipla escolha) pedem para que você prove afirmações. Então, não só é importante que você domine bem técnicas de demonstração para que tenha um maior ferramental à disposição na hora de resolver problemas, mas também para que você aprenda a redigir provas matemáticas em diferentes contextos.</p>
-                        <a href="#" class="btn btn-primary download-btn" download>
+                        <p>{{ item.description }}</p>
+                        <a href="{{ url_for('static', filename=item.pdf_path) }}" 
+                           class="btn btn-primary download-btn" download>
                             Download do Material (PDF)
                         </a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Indução
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#materialsAccordion">
-                    <div class="accordion-body">
-                        <p>Essa técnica de demonstração é tão recorrente em problemas de olimpíada que vale à pena que exista um material só para ela. Aqui revisaremos algumas coisas discutidas no material passado e aprofundaremos um pouco.</p>
-                        <a href="#" class="btn btn-primary download-btn" download>
-                            Download do Material (PDF)
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% if not materials %}
+            <p style="text-align: center;">Nenhum material foi publicado ainda.</p>
+            {% endif %}
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Princípio da Casa dos Pombos (PCP)
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#materialsAccordion">
-                    <div class="accordion-body">
-                        <p>Um pouco menos recorrente que indução, mas não menos importante, o PCP pode ser utilizado de maneira criativa para resolver diversas questões.</p>
-                         <a href="#" class="btn btn-primary download-btn" download>
-                            Download do Material (PDF)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            </div>
+        </div>
     </div>
+
+    <hr>
+    
 </div>
 {% endblock %}
