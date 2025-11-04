@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from flask_bcrypt import Bcrypt
 import uuid
+from datetime import datetime
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -41,3 +42,25 @@ class User(db.Model, UserMixin):
     # Returns True if the password is correct, False otherwise.
     def check_password(self, password: str) -> bool:
         return bcrypt.check_password_hash(self.password_hash, password)
+    
+# --- Material Model ---
+# Represents an item in the "Materials" accordion page
+class Material(db.Model):
+    __tablename__ = 'material'
+
+    # --- Columns ---
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    pdf_path = db.Column(db.String(255), nullable=False) # Stores path like 'static/uploads/material.pdf'
+    
+    # This new column will control the sorting
+    position = db.Column(db.Integer, default=0) 
+    
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, title, description, pdf_path, position):
+        self.title = title
+        self.description = description
+        self.pdf_path = pdf_path
+        self.position = position
