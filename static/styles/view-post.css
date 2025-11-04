@@ -99,7 +99,10 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #198754;
-    margin: 0;
+    margin: 0 auto 15px auto;
+    max-width: 400px;
+    text-align: center;
+    white-space: pre-wrap;
 }
 
 .solver-separator {
@@ -150,5 +153,6 @@
     font-weight: bold;
     padding: 12px 25px;
 }
+
 
 
