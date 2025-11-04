@@ -7,6 +7,7 @@ import yaml
 import re
 import slugify
 import bleach # Used for sanitizing HTML output
+import markdown
 from models import db, User, bcrypt
 from flask_flatpages import FlatPages
 
@@ -212,12 +213,29 @@ def register_routes(app):
         )
         # --- End Sanitization ---
 
+        # --- Process and Sanitize Solution Content ---
+        solution_html = "" # Initialize as empty string
+        if post.path.startswith('months-problems/') and post.meta.get('is_solved'):
+            # 2. Get the raw solution markdown from metadata
+            raw_solution = post.meta.get('solution_content', '')
+            if raw_solution:
+                # 3. Convert the solution markdown to HTML
+                html_solution = markdown.markdown(raw_solution)
+                # 4. Sanitize the new HTML using the *exact same* rules
+                solution_html = bleach.clean(
+                    html_solution,
+                    tags=allowed_tags,
+                    attributes=allowed_attrs
+                )
+        # --- END OF BLOCK ---
+
         # Render the template to display the post
         return render_template('view-post-flat.html', 
                                post=post, 
                                author=author, 
                                logado=current_user.is_authenticated, 
                                post_html=post_html,
+                               solution_html=solution_html,
                                title=post.meta.get('title', 'Post')) # Use post title for page title
 
     # --- Admin Routes ---
