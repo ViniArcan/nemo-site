@@ -8,8 +8,9 @@ import re
 import slugify
 import bleach # Used for sanitizing HTML output
 import markdown
-from models import db, User, bcrypt
+from models import db, bcrypt, User, Material
 from flask_flatpages import FlatPages
+from datetime import datetime
 
 # Initialize Flask-FlatPages extension
 pages = FlatPages()
@@ -73,10 +74,168 @@ def register_routes(app):
 
     ## Materials Page
     @app.route('/materials')
-    def materials(): 
-        return render_template('materials.html', 
-                               logado=current_user.is_authenticated,
-                               title="Materiais") # Add title
+    def materials():
+        # Get all materials from DB, ordered by position
+        all_materials = Material.query.order_by(Material.position.asc()).all()
+
+        return render_template(
+            'materials.html', 
+            logado=current_user.is_authenticated,
+            materials=all_materials, # Pass the list to the template
+            title="Materiais"
+        )
+    
+    ## Manage Materials Page (Admin)
+    @app.route('/manage-materials', methods=['GET', 'POST'])
+    @login_required
+    def manage_materials():
+        # This handles the form for adding a NEW material
+        if request.method == 'POST':
+            # --- Get Form Data ---
+            title = request.form.get('title')
+            description = request.form.get('description')
+            pdf_file = request.files.get('pdf_file')
+
+            if not title or not pdf_file or pdf_file.filename == '':
+                flash('Title and PDF file are required.', 'danger')
+                return redirect(url_for('manage_materials'))
+
+            # --- Save the PDF File ---
+            if pdf_file and allowed_file(pdf_file.filename):
+                filename = secure_filename(pdf_file.filename)
+                # We save PDFs to a subfolder to keep uploads organized
+                save_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'pdfs')
+                os.makedirs(save_dir, exist_ok=True) # Create 'static/uploads/pdfs/' if it doesn't exist
+                save_path = os.path.join(save_dir, filename)
+                pdf_file.save(save_path)
+                
+                # Store the *relative* path for use in url_for()
+                db_path = os.path.join('uploads/pdfs', filename).replace('\\', '/')
+
+                # --- Get Max Position ---
+                # Find the highest position number and add 1
+                max_pos = db.session.query(db.func.max(Material.position)).scalar() or 0
+                new_position = max_pos + 1
+                
+                # --- Create Database Entry ---
+                new_material = Material(
+                    title=title,
+                    description=description,
+                    pdf_path=db_path,
+                    position=new_position
+                )
+                db.session.add(new_material)
+                db.session.commit()
+                flash('New material added successfully.', 'success')
+            else:
+                flash('Invalid file type. Only PDFs are allowed (for now).', 'danger')
+                
+            return redirect(url_for('manage_materials'))
+
+        # --- Handle GET Request ---
+        # Get all materials, sorted by their position, for display
+        all_materials = Material.query.order_by(Material.position.asc()).all()
+        return render_template(
+            'manage-materials.html',
+            materials=all_materials,
+            logado=current_user.is_authenticated,
+            title="Manage Materials"
+        )
+
+    ## Delete Material Action
+    @app.route('/manage-materials/delete/<string:id>', methods=['POST'])
+    @login_required
+    def delete_material(id):
+        material_to_delete = db.session.get(Material, id)
+        if not material_to_delete:
+            flash('Material not found.', 'danger')
+            return redirect(url_for('manage_materials'))
+        
+        # (Optional but recommended: Delete the actual PDF file from disk)
+        try:
+            # Construct the full filesystem path
+            file_path = os.path.join('static', material_to_delete.pdf_path)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        except OSError as e:
+            flash(f"Error deleting file from disk: {e}", "warning")
+
+        # Delete the entry from the database
+        db.session.delete(material_to_delete)
+        db.session.commit()
+        flash('Material deleted successfully.', 'success')
+        return redirect(url_for('manage_materials'))
+
+    # --- (for saving the edits) ---
+    @app.route('/manage-materials/update/<string:id>', methods=['POST'])
+    @login_required
+    def update_material(id):
+        material_to_update = db.session.get(Material, id)
+        if not material_to_update:
+            flash('Material not found.', 'danger')
+            return redirect(url_for('manage_materials'))
+
+        # Get data from the form
+        material_to_update.title = request.form.get('title')
+        material_to_update.description = request.form.get('description')
+        
+        # Check if a new PDF was uploaded
+        pdf_file = request.files.get('pdf_file')
+        if pdf_file and pdf_file.filename != '':
+            if allowed_file(pdf_file.filename):
+                # --- (Optional) Delete the old PDF file ---
+                try:
+                    old_file_path = os.path.join('static', material_to_update.pdf_path)
+                    if os.path.exists(old_file_path):
+                        os.remove(old_file_path)
+                except OSError as e:
+                    flash(f"Error deleting old file: {e}", "warning")
+                
+                # --- Save the new PDF file ---
+                filename = secure_filename(pdf_file.filename)
+                save_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'pdfs')
+                os.makedirs(save_dir, exist_ok=True)
+                save_path = os.path.join(save_dir, filename)
+                pdf_file.save(save_path)
+                
+                # Update the path in the database
+                material_to_update.pdf_path = os.path.join('uploads/pdfs', filename).replace('\\', '/')
+            else:
+                flash('Invalid new file type. Only PDFs are allowed.', 'danger')
+                return redirect(url_for('edit_material', id=id))
+            
+        # Commit changes to the database
+        db.session.commit()
+        flash('Material updated successfully.', 'success')
+        return redirect(url_for('manage_materials'))
+
+    ## Save Material Order Action (from AJAX)
+    @app.route('/manage-materials/save-order', methods=['POST'])
+    @login_required
+    def save_material_order():
+        # Get the JSON data sent from the JavaScript
+        data = request.json
+        if not data or 'order' not in data:
+            return jsonify({'error': 'No order data provided'}), 400
+        
+        id_list = data.get('order')
+        
+        try:
+            # Loop through the list of IDs. The index (0, 1, 2...)
+            # will be their new position.
+            for index, item_id in enumerate(id_list):
+                material = Material.query.filter_by(id=item_id).first()
+                if material:
+                    material.position = index
+                    db.session.add(material)
+            
+            db.session.commit()
+            flash('Material order saved successfully.', 'success')
+            return jsonify({'status': 'success', 'message': 'Order saved!'})
+        
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
 
     # --- Helper Function for Sorting by Date ---
     def get_sortable_date(page):
