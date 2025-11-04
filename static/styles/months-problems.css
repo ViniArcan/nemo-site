@@ -149,6 +149,9 @@
 .solver-name {
     margin-right: 10px; /* Keep margin for desktop */
     font-size: larger;
+    max-width: 200px;
+    text-align: center;
+    white-space: pre-wrap;
 }
 
 /* Ensure mobile solver styles override desktop margins */
@@ -159,3 +162,4 @@
     }
 
 }
+
