@@ -50,7 +50,7 @@
 .problem-item-info p {
     margin: 0;
     font-size: 0.9em;
-    color: #6c757d;
+    color: #101010;
     white-space: pre-wrap;
 }
 
@@ -68,7 +68,7 @@
     color: #198754;
     font-weight: bold;
     font-size: large;
-    margin-right: 15px;
+    margin-right: 55px;
 }
 
 .status-open {
@@ -143,13 +143,13 @@
     height: 90px;
     border-radius: 50%;
     margin-bottom: 5px;
-    margin-right: 10px; /* Keep margin for desktop */
+    margin-right: 50px; /* Keep margin for desktop */
 }
 
 .solver-name {
-    margin-right: 10px; /* Keep margin for desktop */
-    font-size: larger;
-    max-width: 200px;
+    margin-right: 50px; /* Keep margin for desktop */
+    font-size: large;
+    max-width: 150px;
     text-align: center;
     white-space: pre-wrap;
 }
@@ -159,7 +159,6 @@
     .solver-avatar,
     .solver-name {
         margin-right: 0;
+        max-width: 300px;
     }
-
 }
-
