@@ -2,7 +2,11 @@
 
 title: "Título do Problema do Mês"
 date:
-desc: "Descrição do problema."
+
+desc:   |
+  Descrioção do Problema
+  Segunda linha
+
 image: "uploads/your-image-name.png"
 banner: "uploads/banner-image.png"
 post_type: Month-Problem
@@ -24,3 +28,4 @@ solution_content: |
 ## Problem Statement
 
 Write the main body of the problem statement here.
+
